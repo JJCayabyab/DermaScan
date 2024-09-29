@@ -1,0 +1,42 @@
+@import '../../styles/variables';
+
+.navContainer {
+    width: 100%;
+    background-color: $primary-color ;
+    padding: 0px 50px;
+    display: flex;
+    align-items: center;
+    color: white;
+
+    .siteName {
+        font-family: $header-font;
+        font-weight: 500;
+        font-size: 2.5rem;
+    }
+
+    .menuContainer {
+        margin-left: 60px;
+        font-size: 1rem;
+        font-weight: 500;
+
+        .navLinks {
+            font-family: $body-font;
+            list-style-type: none;
+            display: flex;
+            gap: 20px;
+
+            li {
+                a {
+                    &:hover {
+                        background-color: #00d9d9b8;
+                        border-radius: 3px;
+                    }
+                    text-decoration: none;
+                    color: white;
+                    padding: 4px 6px;
+                }
+            }
+        }
+
+    }
+}

@@ -1,0 +1,30 @@
+//margin
+@mixin left-right-margin{
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+//responsive layout
+@mixin mobile {
+    @media screen and (max-width: 480px) {
+        @content;
+    }
+}
+
+@mixin phablet {
+    @media screen and (min-width: 481px) and (max-width: 768px) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media screen and (min-width: 769px) and (max-width: 1024px) {
+        @content;
+    }
+}
+
+@mixin laptop {
+    @media screen and (min-width:1025px) {
+        @content;
+    }
+}

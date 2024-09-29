@@ -1,0 +1,160 @@
+.heroContainer {
+  display: flex;
+  margin: 0 100px;
+  margin-top: 80px;
+  gap: 30px;
+  position: relative;
+  /*
+      .circles {
+          position: absolute;
+          z-index: -1;
+          width: 100%;
+          height: 100%;
+
+          .circle1 {
+              width: 30vw;
+              height: 30vw;
+              background-color: #42a8a851;
+              margin-left: -150px;
+              border-radius: 50%;
+              margin-top: 30px;
+              position: absolute;
+              left: 0;
+          }
+
+          .circle2 {
+              width: 10vw;
+              height: 10vw;
+              background-color: #42a8a851;
+              border-radius: 50%;
+              position: absolute;
+              right: 80px;
+              top: 350px;
+          }
+      }
+  */
+}
+.heroContainer .heroLeftContainer {
+  position: relative;
+}
+.heroContainer .heroLeftContainer .circle1 {
+  width: 400px;
+  height: 400px;
+  background-color: rgba(66, 168, 168, 0.3176470588);
+  margin-left: -150px;
+  border-radius: 50%;
+  margin-top: 30px;
+  position: absolute;
+  left: 0;
+}
+.heroContainer .heroLeftContainer h1 {
+  font-family: "Oswald", sans-serif;
+  color: #008E8E;
+  font-size: 4.3rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+.heroContainer .heroLeftContainer h4 {
+  margin-top: 10px;
+  font-family: "Inter", sans-serif;
+  color: #494949;
+  font-weight: 500;
+  font-size: 1.3rem;
+}
+.heroContainer .heroLeftContainer .heroButton {
+  font-family: "Inter", sans-serif;
+  background-color: #008E8E;
+  margin-top: 30px;
+  padding: 10px 15px;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 5px;
+  color: white;
+}
+.heroContainer .heroRightContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.heroContainer .heroRightContainer .circle2 {
+  width: 10vw;
+  height: 10vw;
+  background-color: rgba(66, 168, 168, 0.3176470588);
+  border-radius: 50%;
+  position: absolute;
+  right: 80px;
+  top: 350px;
+  z-index: -1;
+}
+.heroContainer .heroRightContainer .heroImage {
+  justify-content: center;
+  align-items: center;
+}
+
+.infoContainer {
+  background-color: #008E8E;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 0px;
+}
+.infoContainer hr {
+  height: 5px;
+  background-color: #008E8E;
+  border: none;
+  width: 15%;
+}
+.infoContainer h2 {
+  font-family: "Oswald", sans-serif;
+  text-align: center;
+  color: white;
+  font-size: 2.7rem;
+  font-weight: 500;
+}
+.infoContainer p {
+  text-align: justify;
+  width: 50%;
+  color: white;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.diseaseContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px;
+  margin: 0 100px;
+}
+.diseaseContainer .diseaseImgContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.diseaseContainer .diseaseImgContainer img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.diseaseContainer .diseaseImgContainer p {
+  text-align: center;
+  color: #494949;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+}
+.diseaseContainer h2 {
+  grid-column: span 4;
+  font-family: "Oswald", sans-serif;
+  color: #008E8E;
+  font-size: 2.7rem;
+  font-weight: 500;
+}/*# sourceMappingURL=Home.module.css.map */
