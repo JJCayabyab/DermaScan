@@ -1,10 +1,11 @@
-
-
+import Navbar from '../Navbar/Navbar'
+import styles from './Contact.module.scss'
 const Contact = () => {
   return (
-    <div>
-      Contacts
-    </div>
+    <>
+    <Navbar/>
+     Contact
+    </>
   )
 }
 

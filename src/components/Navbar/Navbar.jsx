@@ -11,9 +11,9 @@ const Navbar = () => {
         <div className={styles.menuContainer}>
           <ul className={styles.navLinks}>
             <li><Link to="/analyze">Analyze</Link></li>
-            <li><a href="#upload">Skin Conditions</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="/skin-conditions">Skin Conditions</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
           </ul>
         </div>
       </div>
