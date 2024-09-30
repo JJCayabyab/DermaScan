@@ -1,7 +1,7 @@
 import Navbar from '../Navbar/Navbar'
 import styles from './Home.module.scss'
 import heroImage from '../../assets/images/home/heroImage.png'
-import { diseaseData } from '../../data/Home'
+import { diseaseData } from '../../data/HomeData'
 const Home = () => {
 
   const displayDisease = diseaseData.map((data, index) => {
@@ -46,9 +46,8 @@ const Home = () => {
       </div>
 
 
-
+      <h2 className={styles.detectable}> Detectable Conditions</h2>
       <div className={styles.diseaseContainer}>
-        <h2> Detectable Conditions</h2>
         {displayDisease}
       </div>
     </div>

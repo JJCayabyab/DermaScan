@@ -1,0 +1,154 @@
+@import '../../styles/variables';
+
+
+.introContainer {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    color: white;
+    background-color: $primary-color;
+    padding: 20px 0px;
+
+    h2 {
+        font-family: $header-font;
+        font-size: 2.7rem;
+    }
+
+    p {
+        text-align: justify;
+        width: 80%;
+        font-family: $body-font;
+        font-size: 1rem;
+    }
+}
+
+
+/*
+.diseaseWrapper {
+    margin: 0 100px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 15px;
+    padding: 20px;
+
+
+    h2 {
+
+        grid-column: span 4;
+        font-family: $header-font;
+        color: $primary-color;
+        font-size: 2.7rem;
+        font-weight: 500;
+    }
+
+    p {
+        grid-column: span 4;
+        text-align: justify;
+        font-family: $body-font;
+        font-size: 1rem;
+    }
+
+    .diseaseContainer {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.296);
+        overflow: hidden;
+        text-align: center;
+        padding: 20px;
+        transition: border 0.3s ease;
+        border: 2px solid transparent;
+
+        img {
+            max-width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        h4 {
+            font-family: $header-font;
+            font-size: 1.2rem;
+            margin-top: 15px;
+            color: $primary-color;
+        }
+
+        &:hover {
+            border-color: $primary-color;
+        }
+    }
+
+
+    >div {
+        &:nth-child(n+7) {
+            justify-content: space-;
+        }
+    }
+
+
+
+}
+    */
+.skinText {
+    font-family: $header-font;
+    color: $primary-color;
+    font-size: 2.7rem;
+    font-weight: 500;
+    margin: 0px 100px;
+}
+
+.infoText{
+    font-family: $body-font;
+    font-size: 1rem;
+    
+    text-align: justify;
+    margin: 0 100px;
+}
+
+.diseaseWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+
+
+
+    .diseaseContainer {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.296);
+        overflow: hidden;
+        text-align: center;
+        padding: 20px;
+        transition: border 0.3s ease;
+        border: 2px solid transparent;
+
+        img {
+            max-width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        h4 {
+            font-family: $header-font;
+            font-size: 1.2rem;
+            margin-top: 15px;
+            color: $primary-color;
+        }
+
+        &:hover {
+            border-color: $primary-color;
+        }
+    }
+
+    >div {
+        background-color: white; // Example style
+        border-radius: 10px;
+        padding: 20px;
+        width: 18%; 
+        margin: 10px; 
+    }
+
+}

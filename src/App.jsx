@@ -3,6 +3,7 @@ import HomePage from './components/HomePage/Home'
 import Contact from './components/ContactPage/Contact'
 import './index.css'
 import Analyze from './components/AnalyzePage/Analyze';
+import SkinConditions from './components/SkinConditionsPage/SkinConditions';
 function App() {
   return (
     <>
@@ -12,7 +13,7 @@ function App() {
           <Route path="/" element={<HomePage/>}/>
           <Route path="/analyze" element={<Analyze/>} />
           <Route path="/contact" element={<Contact/>} />
-          <Route path="/contact" element={<Contact/>} />
+          <Route path="/skin-conditions" element={<SkinConditions/>} />
         </Routes>
       </Router>
     </>

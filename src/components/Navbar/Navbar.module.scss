@@ -8,11 +8,20 @@
     align-items: center;
     color: white;
 
-    .siteName {
-        font-family: $header-font;
-        font-weight: 500;
-        font-size: 2.5rem;
+
+    .logoContainer {
+        a {
+            text-decoration: none;
+        }
+
+        .siteName {
+            font-family: $header-font;
+            font-weight: 500;
+            font-size: 2.5rem;
+            color: white;
+        }
     }
+
 
     .menuContainer {
         margin-left: 60px;
@@ -31,6 +40,7 @@
                         background-color: #00d9d9b8;
                         border-radius: 3px;
                     }
+
                     text-decoration: none;
                     color: white;
                     padding: 4px 6px;

@@ -139,6 +139,8 @@
 }
 
 
+
+/*
 .diseaseContainer {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -178,3 +180,48 @@
     }
 
 }
+    */
+
+
+
+
+.detectable {
+    margin: 0px 100px;
+    font-family: $header-font;
+    color: $primary-color;
+    font-size: 2.7rem;
+    font-weight: 500;
+}
+.diseaseContainer {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    margin: 0 100px;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.diseaseImgContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 25%; /* 4 items per row */
+    margin-bottom: 20px;
+
+    img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    p {
+        text-align: center;
+        color: #494949;
+        font-family: $body-font;
+        font-size: 1rem;
+        font-weight: 400;
+    }
+}
+

@@ -6,10 +6,14 @@
   align-items: center;
   color: white;
 }
-.navContainer .siteName {
+.navContainer .logoContainer a {
+  text-decoration: none;
+}
+.navContainer .logoContainer .siteName {
   font-family: "Oswald", sans-serif;
   font-weight: 500;
   font-size: 2.5rem;
+  color: white;
 }
 .navContainer .menuContainer {
   margin-left: 60px;
