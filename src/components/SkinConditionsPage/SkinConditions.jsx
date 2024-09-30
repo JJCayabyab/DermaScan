@@ -1,14 +1,17 @@
 import Navbar from '../Navbar/Navbar'
 import styles from './SkinConditions.module.scss'
-import { skinConditionData } from '../../data/SkinConditionsData'
+import { skinConditionData } from '../../data/SkinDiseasesData'
+import { Link } from 'react-router-dom'
 const SkinConditions = () => {
 
   const displayDisease = skinConditionData.map((data, index) => {
 
     return (
       <div key={index} className={styles.diseaseContainer}>
-        <img src={data.img} />
-        <h4>{data.name}</h4>
+        <Link key={index} to={`/skin-conditions/${data.name.toLowerCase()}`}>
+          <img src={data.img} />
+          <h4>{data.name}</h4>
+        </Link>
       </div>
     )
   })

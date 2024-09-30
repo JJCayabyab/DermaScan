@@ -179,35 +179,28 @@
   padding: 20px;
   margin: 0 100px;
   justify-content: center;
+  overflow: hidden;
 }
-.diseaseContainer .diseaseImgContainer {
+
+.diseaseImgContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: calc(25% - 20px);
+  width: 25%; /* 4 items per row */
   margin-bottom: 20px;
 }
-.diseaseContainer .diseaseImgContainer img {
+.diseaseImgContainer img {
   width: 200px;
   height: 200px;
   border-radius: 50%;
   -o-object-fit: cover;
      object-fit: cover;
 }
-.diseaseContainer .diseaseImgContainer p {
+.diseaseImgContainer p {
   text-align: center;
   color: #494949;
   font-family: "Inter", sans-serif;
   font-size: 1rem;
   font-weight: 400;
-}
-.diseaseContainer h2 {
-  width: 100%;
-  font-family: "Oswald", sans-serif;
-  color: #008E8E;
-  font-size: 2.7rem;
-  font-weight: 500;
-  text-align: center;
-  margin-bottom: 20px;
 }/*# sourceMappingURL=Home.module.css.map */

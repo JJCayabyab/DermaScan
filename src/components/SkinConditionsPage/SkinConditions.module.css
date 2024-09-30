@@ -130,6 +130,9 @@
 .diseaseWrapper .diseaseContainer:hover {
   border-color: #008E8E;
 }
+.diseaseWrapper .diseaseContainer a {
+  text-decoration: none;
+}
 .diseaseWrapper > div {
   background-color: white;
   border-radius: 10px;

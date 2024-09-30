@@ -98,10 +98,10 @@
     margin: 0px 100px;
 }
 
-.infoText{
+.infoText {
     font-family: $body-font;
     font-size: 1rem;
-    
+
     text-align: justify;
     margin: 0 100px;
 }
@@ -141,14 +141,18 @@
         &:hover {
             border-color: $primary-color;
         }
+
+        a {
+            text-decoration: none;
+        }
     }
 
     >div {
         background-color: white; // Example style
         border-radius: 10px;
         padding: 20px;
-        width: 18%; 
-        margin: 10px; 
+        width: 18%;
+        margin: 10px;
     }
 
 }
