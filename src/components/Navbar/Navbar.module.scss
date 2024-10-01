@@ -3,13 +3,13 @@
 .navContainer {
     width: 100%;
     background-color: $primary-color ;
-    padding: 0px 50px;
     display: flex;
     align-items: center;
     color: white;
-
+    justify-content: space-between;
 
     .logoContainer {
+        margin-left: 100px;
         a {
             text-decoration: none;
         }
@@ -24,8 +24,8 @@
 
 
     .menuContainer {
-        margin-left: 60px;
-        font-size: 1rem;
+        margin-right: 100px;
+        font-size: 1rem;    
         font-weight: 500;
 
         .navLinks {

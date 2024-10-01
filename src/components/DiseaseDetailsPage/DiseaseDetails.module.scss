@@ -19,6 +19,9 @@
     small {
         font-size: 1.4rem;
         color: rgb(101, 101, 101);
+        a{
+            color: rgb(101, 101, 101);
+        }
     }
 
     p {
@@ -35,9 +38,12 @@
         justify-content: center;
         margin-top: 10px;
 
-        img {
-            width: 45%;
-            height: auto;
-        }
+      
+    }
+
+
+    .textContainer{
+       width: 80%;
+       align-items: center;
     }
 }

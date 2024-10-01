@@ -27,7 +27,7 @@ const Home = () => {
           <div className={styles.circle1}></div>
           <h1>Detect Skin Disease from  <br />Your Face Instantly.</h1>
           <h4>Upload a photo and get instant insights on potential skin conditions</h4>
-          <button className={styles.heroButton}>Get Started</button>
+          <button className={styles.heroButton}>Try Now</button>
         </div>
 
         <div className={styles.heroRightContainer}>

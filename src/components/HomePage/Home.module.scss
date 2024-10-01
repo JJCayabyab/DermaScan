@@ -2,10 +2,12 @@
 
 .heroContainer {
     display: flex;
-    margin: 0 100px;
+
     margin-top: 80px;
     gap: 30px;
     position: relative;
+    width: 100%;
+    padding: 0px 100px;
 
     /*
     .circles {
@@ -38,6 +40,7 @@
 */
     .heroLeftContainer {
         position: relative;
+        width: 45%;
 
         .circle1 {
             width: 400px;
@@ -83,6 +86,8 @@
         justify-content: center;
         align-items: center;
         position: relative;
+        
+        width: 45%;
 
         .circle2 {
             width: 10vw;
@@ -182,9 +187,6 @@
 }
     */
 
-
-
-
 .detectable {
     margin: 0px 100px;
     font-family: $header-font;
@@ -192,9 +194,10 @@
     font-size: 2.7rem;
     font-weight: 500;
 }
+
 .diseaseContainer {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap !important;
     padding: 20px;
     margin: 0 100px;
     justify-content: center;
@@ -206,7 +209,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 25%; /* 4 items per row */
+    width: 25%;
+    /* 4 items per row */
     margin-bottom: 20px;
 
     img {
@@ -224,4 +228,3 @@
         font-weight: 400;
     }
 }
-
