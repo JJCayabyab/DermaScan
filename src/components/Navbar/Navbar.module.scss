@@ -1,4 +1,5 @@
 @import '../../styles/variables';
+@import '../../styles/mixins';
 
 .navContainer {
     width: 100%;
@@ -10,9 +11,11 @@
     position: fixed;
     top: 0;
     z-index: 100;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Added shadow */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+
     .logoContainer {
         margin-left: 100px;
+
         a {
             text-decoration: none;
         }
@@ -28,28 +31,134 @@
 
     .menuContainer {
         margin-right: 100px;
-        font-size: 1rem;    
+        font-size: 1rem;
         font-weight: 500;
+    }
+}
 
-        .navLinks {
-            font-family: $body-font;
-            list-style-type: none;
-            display: flex;
-            gap: 20px;
 
-            li {
-                a {
-                    &:hover {
-                        background-color: #00d9d9b8;
-                        border-radius: 3px;
-                    }
+.navLinks {
+    font-family: $body-font;
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
 
-                    text-decoration: none;
-                    color: white;
-                    padding: 4px 6px;
-                }
+    li {
+        a {
+            &:hover {
+                background-color: #00d9d9b8;
+                border-radius: 3px;
             }
+
+            text-decoration: none;
+            color: white;
+            padding: 4px 6px;
+        }
+    }
+}
+
+.sideContainer {
+    display: none;
+    position: fixed;
+    flex-direction: column;
+    top: 0;
+    right: 0;
+    height: 200vh;
+    width: 50%;
+    z-index: 999;
+    box-shadow: -10px 0 10px rgb(0, 0, 0, 0.1);
+    margin-right: 0;
+    color: rgb(255, 255, 255);
+    background-color: $primary-color;
+    backdrop-filter: blur(10px);
+    transition: transform 0.5s ease-in-out;
+    /* Smooth animation */
+    transform: translateX(0);
+    /* Initial position */
+
+
+    .navLinks {
+        display: flex;
+        flex-direction: column;
+        margin: 10px 20px;
+    }
+
+
+}
+
+
+
+
+.menuButton {
+    display: none;
+}
+
+@include phablet {
+
+    @media screen and (max-width: 520px) {
+
+        .logoContainer {
+            visibility: hidden;
         }
 
+    }
+
+    .logoContainer {
+        margin-left: 50px !important;
+    }
+
+    .menuContainer {
+        margin-right: 50px !important;
+
+    }
+
+    .siteName {
+        font-size: 1rem;
+    }
+
+    .hideOnSmall {
+        display: none;
+    }
+
+    .menuButton {
+        display: block;
+    }
+
+    .options {
+        li {
+            margin-bottom: 20px;
+        }
+    }
+}
+
+@include mobile {
+    @media screen and (max-width: 520px) {
+        .logoContainer {
+            visibility: hidden;
+        }
+
+    }
+
+    .logoContainer {
+        margin-left: 20px !important;
+    }
+
+    .menuContainer {
+        margin-right: 20px !important;
+
+    }
+
+    .hideOnSmall {
+        display: none;
+    }
+
+    .menuButton {
+        display: block;
+    }
+
+    .options {
+        li {
+            margin-bottom: 20px;
+        }
     }
 }
