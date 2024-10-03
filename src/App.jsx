@@ -5,6 +5,7 @@ import './index.css'
 import Analyze from './components/AnalyzePage/Analyze';
 import SkinConditions from './components/SkinConditionsPage/SkinConditions';
 import DiseaseDetails from './components/DiseaseDetailsPage/DiseaseDetails';
+import About from './components/AboutPage/About';
 function App() {
   return (
     <>
@@ -16,6 +17,7 @@ function App() {
           <Route path="/contact" element={<Contact/>} />
           <Route path="/skin-conditions" element={<SkinConditions/>} />
           <Route path="/skin-conditions/:name" element={<DiseaseDetails/>} />
+          <Route path="/about" element={<About/>} />
         </Routes>
       </Router>
     </>

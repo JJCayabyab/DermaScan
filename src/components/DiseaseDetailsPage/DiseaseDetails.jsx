@@ -22,7 +22,7 @@ const DiseaseDetails = () => {
   // Extract 'name' from the URL parameters
   const { name } = useParams();
 
-   // Find the disease in the skinConditionData
+  // Find the disease in the skinConditionData
   const disease = skinConditionData.find((d) => d.name.toLowerCase() === name.toLowerCase());
   return (
     <>
@@ -32,8 +32,13 @@ const DiseaseDetails = () => {
         <small>Source: <a href={disease.link} target='_blank'>{disease.source}</a></small>
 
         <div className={styles.imageContainer}>
-          <img src={disease.img1} alt={`${disease.name} image 1`} />
-          <img src={disease.img2} alt={`${disease.name} image 2`} />
+          {/* Check if the definition exists before displaying */}
+          {disease.img1 && (
+            <img src={disease.img1} alt={`${disease.name} image 1`} />
+          )}
+          {disease.img2 && (
+            <img src={disease.img2} alt={`${disease.name} image 2`} />
+          )}
         </div>
 
         <div className={styles.textContainer}>

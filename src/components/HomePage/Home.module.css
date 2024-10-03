@@ -1,9 +1,10 @@
 .heroContainer {
   display: flex;
-  margin: 0 100px;
-  margin-top: 80px;
+  margin-top: 100px;
   gap: 30px;
   position: relative;
+  width: 100%;
+  padding: 0px 100px;
   /*
       .circles {
           position: absolute;
@@ -36,6 +37,7 @@
 }
 .heroContainer .heroLeftContainer {
   position: relative;
+  width: 45%;
 }
 .heroContainer .heroLeftContainer .circle1 {
   width: 400px;
@@ -76,6 +78,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  width: 45%;
 }
 .heroContainer .heroRightContainer .circle2 {
   width: 10vw;
@@ -175,29 +178,29 @@
 
 .diseaseContainer {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap !important;
   padding: 20px;
   margin: 0 100px;
   justify-content: center;
   overflow: hidden;
 }
-
-.diseaseImgContainer {
+.diseaseContainer .diseaseImgContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 25%; /* 4 items per row */
+  width: 25%;
+  /* 4 items per row */
   margin-bottom: 20px;
 }
-.diseaseImgContainer img {
+.diseaseContainer .diseaseImgContainer img {
   width: 200px;
   height: 200px;
   border-radius: 50%;
   -o-object-fit: cover;
      object-fit: cover;
 }
-.diseaseImgContainer p {
+.diseaseContainer .diseaseImgContainer p {
   text-align: center;
   color: #494949;
   font-family: "Inter", sans-serif;

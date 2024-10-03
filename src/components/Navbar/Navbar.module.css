@@ -1,10 +1,17 @@
 .navContainer {
   width: 100%;
   background-color: #008E8E;
-  padding: 0px 50px;
   display: flex;
   align-items: center;
   color: white;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Added shadow */
+}
+.navContainer .logoContainer {
+  margin-left: 100px;
 }
 .navContainer .logoContainer a {
   text-decoration: none;
@@ -16,7 +23,7 @@
   color: white;
 }
 .navContainer .menuContainer {
-  margin-left: 60px;
+  margin-right: 100px;
   font-size: 1rem;
   font-weight: 500;
 }

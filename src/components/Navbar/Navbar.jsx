@@ -1,5 +1,5 @@
 import styles from './Navbar.module.scss'
-import { Link } from 'react-router-dom'
+
 const Navbar = () => {
   return (
     <div>
@@ -12,7 +12,7 @@ const Navbar = () => {
 
         <div className={styles.menuContainer}>
           <ul className={styles.navLinks}>
-            <li><Link to="/analyze">Analyze</Link></li>
+            <li><a to="/analyze">Analyze</a></li>
             <li><a href="/skin-conditions">Skin Diseases</a></li>
             <li><a href="/about">About</a></li>
             <li><a href="/contact">Contact</a></li>
