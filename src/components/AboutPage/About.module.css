@@ -88,7 +88,7 @@ p {
 .infoWrapper .processWrapper .processContainer {
   gap: 15px;
   display: flex;
-  background-color: #008E8E;
+  background: linear-gradient(135deg, #1b8888, #0bb9b9);
   justify-content: center;
   align-items: center;
   width: 40%;
@@ -96,6 +96,11 @@ p {
   color: white;
 }
 .infoWrapper .processWrapper .processContainer h2 {
-  width: auto;
+  max-width: 15%;
   color: white;
+  padding: 0;
+  margin: 0;
+}
+.infoWrapper .processWrapper .processContainer img {
+  max-width: 20%;
 }/*# sourceMappingURL=About.module.css.map */

@@ -41,8 +41,8 @@ const Navbar = () => {
         <div className={styles.sideContainer}>
           <ul className={styles.navLinks}>
             <li onClick={hideSideBar}><svg xmlns="http://www.w3.org/2000/svg" height="35px" viewBox="0 -960 960 960" width="35px" fill="#e8eaed"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" /></svg></li>
-            <li><a to="/">Home</a></li>
-            <li><a to="/analyze">Analyze</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/analyze">Analyze</a></li>
             <li><a href="/skin-conditions">Skin Diseases</a></li>
             <li><a href="/about">About</a></li>
             <li><a href="/contact">Contact</a></li>

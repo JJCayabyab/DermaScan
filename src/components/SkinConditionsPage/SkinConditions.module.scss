@@ -1,5 +1,5 @@
 @import '../../styles/variables';
-
+@import '../../styles/mixins';
 
 .introContainer {
     margin-top: 100px;
@@ -9,6 +9,7 @@
     color: white;
     background-color: $primary-color;
     padding: 20px 0px;
+    text-align: center;
 
     h2 {
         font-family: $header-font;
@@ -100,7 +101,6 @@
 .infoText {
     font-family: $body-font;
     font-size: 1rem;
-
     text-align: justify;
     margin: 0 100px;
 }
@@ -111,12 +111,13 @@
     justify-content: center;
     width: 100%;
     .diseaseContainer {
+        width: 20%;
         background-color: white;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.296);
         overflow: hidden;
         text-align: center;
-        padding: 20px;
+        padding: 1.5%;
         transition: border 0.3s ease;
         border: 2px solid transparent;
 
@@ -129,8 +130,7 @@
 
         h4 {
             font-family: $header-font;
-            font-size: 1.2rem;
-            margin-top: 15px;
+            font-size: 1.3rem;
             color: $primary-color;
         }
 
@@ -149,6 +149,111 @@
         padding: 20px;
         width: 18%;
         margin: 10px;
+    }
+
+}
+
+@include tablet {
+    .introContainer {
+
+        h2 {
+            width: 80%;
+
+            font-size: 2.7rem;
+        }
+
+        p {
+            font-size: 1rem;
+        }
+    }
+
+    .skinText {
+        font-size: 2.7rem;
+    }
+
+    .infoText {
+        font-size: 1rem;
+        margin: 0 80px;
+    }
+
+}
+
+@include phablet {
+    .introContainer {
+
+        h2 {
+            width: 80%;
+            font-size: 2.4rem;
+        }
+
+        p {
+            font-size: 0.9rem;
+        }
+    }
+
+    .skinText {
+        text-align: center;
+        font-size: 2.4rem;
+    }
+
+    .infoText {
+        font-size: 0.9rem;
+        margin: 0 70px;
+    }
+
+    .diseaseWrapper {
+        .diseaseContainer {     
+            width: 25%;
+               border-radius: 7px;
+            h4 {
+                font-size: 1rem;
+            }
+
+              
+            img{
+                border-radius: 5px;
+            }
+        }
+    }
+}
+
+@include mobile {
+    .introContainer {
+
+        h2 {
+            width: 95%;
+            font-size: 2rem;
+        }
+
+        p {
+            font-size: 0.8rem;
+        }
+    }
+
+    .skinText {
+        text-align: center;
+        font-size: 2rem;
+        margin: 0;
+    }
+
+    .infoText {
+        font-size: 0.8rem;
+        margin: 0 30px;
+    }
+
+
+    .diseaseWrapper {
+        .diseaseContainer {
+            width: 30%;
+            border-radius: 7px;
+            h4 {
+                font-size: 0.9rem;
+            }
+            
+            img{
+                border-radius: 4px;
+            }
+        }
     }
 
 }

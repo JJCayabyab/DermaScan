@@ -6,6 +6,7 @@
   color: white;
   background-color: #008E8E;
   padding: 20px 0px;
+  text-align: center;
 }
 .introContainer h2 {
   font-family: "Oswald", sans-serif;
@@ -105,12 +106,13 @@
   width: 100%;
 }
 .diseaseWrapper .diseaseContainer {
+  width: 20%;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.296);
   overflow: hidden;
   text-align: center;
-  padding: 20px;
+  padding: 1.5%;
   transition: border 0.3s ease;
   border: 2px solid transparent;
 }
@@ -123,8 +125,7 @@
 }
 .diseaseWrapper .diseaseContainer h4 {
   font-family: "Oswald", sans-serif;
-  font-size: 1.2rem;
-  margin-top: 15px;
+  font-size: 1.3rem;
   color: #008E8E;
 }
 .diseaseWrapper .diseaseContainer:hover {
@@ -139,4 +140,76 @@
   padding: 20px;
   width: 18%;
   margin: 10px;
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .introContainer h2 {
+    width: 80%;
+    font-size: 2.7rem;
+  }
+  .introContainer p {
+    font-size: 1rem;
+  }
+  .skinText {
+    font-size: 2.7rem;
+  }
+  .infoText {
+    font-size: 1rem;
+    margin: 0 80px;
+  }
+}
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .introContainer h2 {
+    width: 80%;
+    font-size: 2.4rem;
+  }
+  .introContainer p {
+    font-size: 0.9rem;
+  }
+  .skinText {
+    text-align: center;
+    font-size: 2.4rem;
+  }
+  .infoText {
+    font-size: 0.9rem;
+    margin: 0 70px;
+  }
+  .diseaseWrapper .diseaseContainer {
+    width: 25%;
+    border-radius: 7px;
+  }
+  .diseaseWrapper .diseaseContainer h4 {
+    font-size: 1rem;
+  }
+  .diseaseWrapper .diseaseContainer img {
+    border-radius: 5px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .introContainer h2 {
+    width: 95%;
+    font-size: 2rem;
+  }
+  .introContainer p {
+    font-size: 0.8rem;
+  }
+  .skinText {
+    text-align: center;
+    font-size: 2rem;
+    margin: 0;
+  }
+  .infoText {
+    font-size: 0.8rem;
+    margin: 0 30px;
+  }
+  .diseaseWrapper .diseaseContainer {
+    width: 30%;
+    border-radius: 7px;
+  }
+  .diseaseWrapper .diseaseContainer h4 {
+    font-size: 0.9rem;
+  }
+  .diseaseWrapper .diseaseContainer img {
+    border-radius: 4px;
+  }
 }/*# sourceMappingURL=SkinConditions.module.css.map */

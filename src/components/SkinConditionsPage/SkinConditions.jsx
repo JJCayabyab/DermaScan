@@ -36,7 +36,6 @@ const SkinConditions = () => {
       <p className={styles.infoText}>This section focuses on various facial skin diseases, providing an overview of their symptoms, causes, and treatment options. Click on the image to view the full details of each condition. The information presented here is thoroughly researched and sourced from reputable medical platforms, including DermNet and the Cleveland Clinic, ensuring accuracy and reliability
         for those seeking a deeper understanding of these common skin conditions. </p>
       <div className={styles.diseaseWrapper}>
-
         {displayDisease}
       </div>
     </>

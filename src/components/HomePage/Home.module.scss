@@ -1,6 +1,8 @@
 @import '../../styles/variables';
 @import '../../styles/mixins';
 
+
+
 .heroContainer {
     display: flex;
     margin-top: 100px;
@@ -120,7 +122,6 @@
         width: 50%;
         color: white;
         font-family: $body-font;
-        font-weight: 400;
         font-size: 1rem;
     }
 }
@@ -211,6 +212,7 @@
     .diseaseContainer {
         .diseaseImgContainer {
             width: 40%;
+
             img {
                 width: 150px; // Further adjust image size for very small screens
                 height: 150px;
@@ -226,6 +228,7 @@
     .diseaseContainer {
         .diseaseImgContainer {
             width: 40%;
+
             img {
                 width: 120px; // Further adjust image size for very small screens
                 height: 120px;
@@ -278,8 +281,6 @@
 
     }
 }
-
-
 
 
 //for phablet size responsiveness
@@ -362,6 +363,10 @@
             text-align: center;
             align-items: center;
 
+            .circle1 {
+                width: 300px;
+                height: 300px;
+            }
 
             .heroButton {
                 margin-top: 20px;
