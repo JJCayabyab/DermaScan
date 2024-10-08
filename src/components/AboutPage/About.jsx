@@ -12,8 +12,15 @@ const About = () => {
     const displayTech = aboutData.technology.map((tech, index) => {
         return (
             <div key={index} className={styles.techContainer}>
-                <img src={tech.img} />
-                <p>{tech.info}</p>
+                <div className={styles.imgContainer}>
+                    <img src={tech.img} />
+                </div>
+
+                <div className={styles.textContainer}>
+                    <h3>{tech.name}</h3>
+                    <p>{tech.info}</p>
+                </div>
+
             </div>
         )
     })
@@ -22,17 +29,22 @@ const About = () => {
     const displayHow = aboutData.process.map((process, index) => {
         return (
             <div key={index} className={styles.processContainer}>
-                <h2>{process.number}</h2>
-                <img src={process.img} />
-                <p>{process.info}</p>
+                <div className={styles.numContainer}>
+                    <h2>{process.number}</h2>
+                </div>
+                <div className={styles.imgContainer}>
+                    <img src={process.img} />
+                </div>
+                <div className={styles.infoContainer}>
+                    <p>{process.info}</p>
+                </div>
             </div>
         )
     })
     return (
         <>
             <Navbar />
-            <div className={styles.circle1}></div>
-            <div className={styles.circle2}></div>
+
 
             <div className={styles.infoWrapper}>
                 <div className={styles.missionContainer}>

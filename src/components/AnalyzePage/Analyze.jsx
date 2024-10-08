@@ -34,7 +34,7 @@ const Analyze = () => {
           <img src={uploadVector} className={styles.uploadVector} alt="Upload" />
         )}
         <div className={styles.optionsContainer}>
-          {/* Use `if` statements instead of ternary */}
+          {/*condition to return if the user has uploaded an image or not*/}
           {(() => {
             if (imageSrc) {
               return (

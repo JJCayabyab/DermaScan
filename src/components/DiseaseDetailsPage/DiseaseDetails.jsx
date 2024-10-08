@@ -34,10 +34,10 @@ const DiseaseDetails = () => {
         <div className={styles.imageContainer}>
           {/* Check if the definition exists before displaying */}
           {disease.img1 && (
-            <img src={disease.img1} alt={`${disease.name} image 1`} />
+            <img src={disease.img1} alt={`${disease.altText}, image 1`} />
           )}
           {disease.img2 && (
-            <img src={disease.img2} alt={`${disease.name} image 2`} />
+            <img src={disease.img2} alt={`${disease.altText}}, image 2`} />
           )}
         </div>
 

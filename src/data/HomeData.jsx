@@ -9,31 +9,38 @@ import seborrheic from '../assets/images/home/home-seborrheic.jpg'
 export const diseaseData = [
     {
         image: eczema,
-        name: 'Eczema'
+        name: 'Eczema',
+        altText: 'Close-up of Eczema on the face.'
     },
     {
         image: acne,
-        name: 'Acne'
+        name: 'Acne',
+        altText: 'Close-up of acne on the face.'
     },
     {
         image: rosacea,
-        name: 'Rosacea'
+        name: 'Rosacea',
+        altText: 'Close-up of Rosacea on the face.'
     }
     , {
         image: tinea,
-        name: 'Tinea Faciei'
+        name: 'Tinea Faciei',
+        altText: 'Close-up of Tinea Faciei on the face.'
     },
     {
         image: perioral,
-        name: 'Perioral dermatitis'
+        name: 'Perioral dermatitis',
+        altText: 'Close-up of Perioral dermatitis on the face.'
     },
     {
         image: psoriasis,
-        name: 'Psoraisis'
+        name: 'Psoraisis',
+        altText: 'Close-up of Psoraisis on the face.'
     },
     {
         image: seborrheic,
-        name: 'Seborrheic Dermatitis'
+        name: 'Seborrheic Dermatitis',
+        altText: 'Close-up of Seborrheic Dermatitis on the face.'
     }
 
 ]

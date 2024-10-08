@@ -1,106 +1,321 @@
-.circle1,
-.circle2 {
-  position: absolute;
-  background-color: rgba(66, 168, 168, 0.3176470588);
-  border-radius: 50%;
-  width: 350px;
-  height: 350px;
-  z-index: 1;
-}
-
-.circle1 {
-  top: 800px;
-}
-
-.circle2 {
-  width: 250px;
-  height: 250px;
-  top: 600px;
-  right: 0;
-  margin-right: -50px;
-}
-
-h2 {
-  font-family: "Oswald", sans-serif;
-  font-size: 2.7rem;
-}
-
-p {
-  font-size: 1rem;
-  font-family: "Inter", sans-serif;
-}
-
-.infoWrapper {
+.missionContainer {
   margin-top: 100px;
-}
-.infoWrapper .missionContainer {
   display: flex;
+  gap: 60px;
+  justify-content: center;
   background-color: #008E8E;
-  width: 100%;
   padding: 20px 100px;
   color: white;
 }
-.infoWrapper .missionContainer .leftSide {
+.missionContainer .leftSide {
+  text-align: justify;
   width: 45%;
 }
-.infoWrapper .missionContainer .rightSide {
+.missionContainer .rightSide {
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 45%;
 }
-.infoWrapper .techWrapper {
-  padding: 20px 100px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+.missionContainer .rightSide img {
+  width: 100%;
 }
-.infoWrapper .techWrapper h2 {
+
+.techWrapper {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 100px;
+  flex-direction: column;
+}
+.techWrapper h2 {
   color: #008E8E;
 }
-.infoWrapper .techWrapper .techContainer {
+.techWrapper .techContainer {
   width: 65%;
   display: flex;
   color: white;
-  gap: 15px;
+  gap: 30px;
 }
-.infoWrapper .techWrapper .techContainer p {
-  padding: 10px 25px;
+.techWrapper .techContainer .imgContainer {
+  width: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.techWrapper .techContainer .imgContainer img {
+  width: 100%;
+}
+.techWrapper .techContainer .textContainer {
+  padding: 10px 20px;
+  flex-direction: column;
   background-color: #008E8E;
+  text-align: center;
+  width: 100%;
+}
+.techWrapper .techContainer .textContainer h3 {
+  font-size: 1.8rem;
+}
+.techWrapper .techContainer .textContainer p {
   text-align: justify;
 }
-.infoWrapper .processWrapper {
+.techWrapper .techContainer:nth-of-type(2) {
+  flex-direction: row-reverse;
+}
+
+.processWrapper {
   padding: 10px 50px;
   background-color: #ebebeb;
   gap: 30px;
-  z-index: 100;
+  z-index: 20;
   position: relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
-.infoWrapper .processWrapper h2 {
+.processWrapper h2 {
   color: #008E8E;
   width: 100%;
   padding: 0px 50px;
 }
-.infoWrapper .processWrapper .processContainer {
+.processWrapper .processContainer {
   gap: 15px;
   display: flex;
   background: linear-gradient(135deg, #1b8888, #0bb9b9);
-  justify-content: center;
   align-items: center;
-  width: 40%;
-  padding: 30px;
+  width: 45%;
+  padding: 15px 0px;
   color: white;
 }
-.infoWrapper .processWrapper .processContainer h2 {
-  max-width: 15%;
+.processWrapper .processContainer .numContainer {
+  width: 15%;
+  text-align: center;
+}
+.processWrapper .processContainer .numContainer h2 {
   color: white;
   padding: 0;
-  margin: 0;
 }
-.infoWrapper .processWrapper .processContainer img {
-  max-width: 20%;
+.processWrapper .processContainer .imgContainer {
+  width: 15%;
+}
+.processWrapper .processContainer .imgContainer img {
+  max-width: 100%;
+}
+.processWrapper .processContainer .infoContainer {
+  width: 60%;
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .techWrapper {
+    flex-direction: column;
+  }
+  .techWrapper .techContainer {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+  .techWrapper .techContainer .textContainer {
+    flex-direction: column;
+    width: 100%;
+  }
+  .techWrapper .techContainer .imgContainer {
+    width: 25%;
+  }
+  .techWrapper .techContainer:nth-of-type(2) {
+    flex-direction: column;
+  }
+  .processWrapper h2 {
+    font-size: 2.2rem;
+  }
+  .processWrapper .processContainer .numContainer {
+    width: 13%;
+  }
+  .processWrapper .processContainer .numContainer h2 {
+    color: white;
+  }
+  .processWrapper .processContainer .imgContainer {
+    width: 13%;
+  }
+  .processWrapper .processContainer .imgContainer img {
+    max-width: 100%;
+  }
+}
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .missionContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 65px;
+    gap: 10px;
+  }
+  .missionContainer .leftSide {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+  .missionContainer .leftSide h2 {
+    font-size: 2.4rem;
+  }
+  .missionContainer .leftSide p {
+    font-size: 0.9rem;
+  }
+  .missionContainer .rightSide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  .missionContainer .rightSide img {
+    width: 70%;
+  }
+  .techWrapper {
+    flex-direction: column;
+    padding: 20px 60px;
+  }
+  .techWrapper h2 {
+    font-size: 2.4rem;
+  }
+  .techWrapper .techContainer {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+  .techWrapper .techContainer .textContainer {
+    flex-direction: column;
+    width: 100%;
+  }
+  .techWrapper .techContainer .textContainer h3 {
+    font-size: 1.6rem;
+  }
+  .techWrapper .techContainer .textContainer p {
+    font-size: 0.9rem;
+  }
+  .techWrapper .techContainer .imgContainer {
+    width: 30%;
+  }
+  .techWrapper .techContainer:nth-of-type(2) {
+    flex-direction: column;
+  }
+  .processWrapper h2 {
+    font-size: 2.2rem;
+  }
+  .processWrapper .processContainer {
+    flex-direction: column;
+  }
+  .processWrapper .processContainer .numContainer {
+    width: 100%;
+    text-align: left;
+    margin-left: 20%;
+  }
+  .processWrapper .processContainer .numContainer h2 {
+    color: white;
+  }
+  .processWrapper .processContainer .imgContainer {
+    width: 30%;
+    justify-content: center;
+    display: flex;
+  }
+  .processWrapper .processContainer .imgContainer img {
+    max-width: 90%;
+  }
+  .processWrapper .processContainer .infoContainer {
+    width: 80%;
+  }
+  .processWrapper .processContainer .infoContainer p {
+    font-size: 0.9rem;
+  }
+}
+@media screen and (max-width: 480px) {
+  .missionContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 30px;
+    gap: 10px;
+  }
+  .missionContainer .leftSide {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+  .missionContainer .leftSide h2 {
+    font-size: 2rem;
+  }
+  .missionContainer .leftSide p {
+    font-size: 0.8rem;
+  }
+  .missionContainer .rightSide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  .missionContainer .rightSide img {
+    width: 90%;
+  }
+  .techWrapper {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px 30px;
+  }
+  .techWrapper h2 {
+    font-size: 2rem;
+  }
+  .techWrapper .techContainer {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+  .techWrapper .techContainer .textContainer {
+    flex-direction: column;
+    width: 100%;
+  }
+  .techWrapper .techContainer .textContainer h3 {
+    font-size: 1.4rem;
+  }
+  .techWrapper .techContainer .textContainer p {
+    font-size: 0.8rem;
+  }
+  .techWrapper .techContainer .imgContainer {
+    width: 40%;
+  }
+  .techWrapper .techContainer:nth-of-type(2) {
+    flex-direction: column;
+  }
+  .processWrapper h2 {
+    font-size: 2.1rem;
+  }
+  .processWrapper .processContainer {
+    flex-direction: column;
+    width: 100%;
+  }
+  .processWrapper .processContainer .numContainer {
+    width: 100%;
+    text-align: left;
+    margin-left: 20%;
+  }
+  .processWrapper .processContainer .numContainer h2 {
+    color: white;
+  }
+  .processWrapper .processContainer .imgContainer {
+    width: 30%;
+    justify-content: center;
+    display: flex;
+  }
+  .processWrapper .processContainer .imgContainer img {
+    max-width: 90%;
+  }
+  .processWrapper .processContainer .infoContainer {
+    width: 80%;
+  }
+  .processWrapper .processContainer .infoContainer p {
+    font-size: 0.9rem;
+  }
 }/*# sourceMappingURL=About.module.css.map */

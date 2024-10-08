@@ -24,10 +24,12 @@ export const aboutData = {
     ],
     technology: [
         {
+            name:'AlexNet',
             info: 'AlexNet is a groundbreaking deep learning architecture that utilizes Convolutional Neural Networks (CNNs) for image classification. It consists of multiple convolutional layers followed by fully connected layers, allowing it to effectively extract features from images and recognize complex patterns. With innovative techniques like Rectified Linear Units (ReLU) and dropout to prevent overfitting, AlexNet excels in handling large-scale image classification tasks.',
             img: tech1
         },
         {
+            name:'XGBoost',
             info: 'XGBoost, or Extreme Gradient Boosting, is an advanced machine learning algorithm known for its speed and efficiency in classification and regression tasks. It builds an ensemble of decision trees, each correcting errors from the previous ones, leading to highly accurate predictions. By employing gradient boosting and regularization techniques, XGBoost effectively mitigates overfitting, making it a powerful tool for complex classification problems. In our technology, it enhances the classification accuracy of facial skin diseases when integrated with AlexNet.',
             img: tech2
         }
@@ -42,7 +44,7 @@ export const aboutData = {
         {
             number: 2,
             img:process2,
-            info:`The image processing steps involve data augmentation to create diverse training samples, K-means clustering to segment the image and isolate relevant regions, normalization to scale pixel values for improved model performance, and resizing the images to 227x227 pixels the AlexNet model.`
+            info:`The image processing steps include data augmentation for diverse training samples, K-means clustering for image segmentation, normalization to scale pixel values, and resizing to 227x227 pixels for AlexNet.`
         },
         {
             number: 3,

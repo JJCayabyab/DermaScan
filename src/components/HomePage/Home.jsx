@@ -7,7 +7,7 @@ const Home = () => {
   const displayDisease = diseaseData.map((data, index) => {
     return (
       <div key={index} className={styles.diseaseImgContainer}>
-        <img src={data.image} />
+        <img src={data.image}  alt={data.altText}/>
         <p>{data.name}</p>
       </div>
     )
@@ -29,7 +29,7 @@ const Home = () => {
 
         <div className={styles.heroRightContainer}>
           <div className={styles.circle2}></div>
-          <img className={styles.heroImage} src={heroImage} />
+          <img className={styles.heroImage} src={heroImage} alt='Hero Icon' />
         </div>
       </div>
 
