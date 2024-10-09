@@ -32,11 +32,11 @@
     margin: auto;
     border-radius: 20px;
     overflow: hidden;
-    width: 85% ;
+    width: 85%;
     max-width: 700px;
     overflow: hidden;
     margin-top: 30px;
-    justify-content: center; 
+    justify-content: center;
 
     .previewImage {
         object-fit: contain;
@@ -45,37 +45,60 @@
     }
 
     .uploadVector {
-        width: 70%;
+        width: 60%;
         height: auto;
     }
 
+    .allowedMessage {
+        font-style: italic;
+        text-align: center;
+        width: 80%;
+        color: #606060;
+        font-weight: 350;
+    }
+
+    .errorMessage {
+        margin-top: 5px;
+        text-align: center;
+        width: 80%;
+        color: #606060;
+        font-weight: 350;
+        color: rgb(204, 8, 8);
+    }
+
     .optionsContainer {
-        margin-top: 15px;
         display: flex;
         gap: 10px;
-        align-items: flex-end;
 
 
-        label,button {
-            font-family: $body-font;
-            font-size: 1.4rem;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 7px;
-            background-color: $primary-color;
-            color: white;
+        label,
+        button {
+            @include button;
         }
 
         .hiddenInput {
             display: none;
         }
+
         button:nth-of-type(2) {
-            background-color:rgb(204, 8, 8);
+            background-color: rgb(204, 8, 8);
+            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+
+            &:hover {
+                background-color: rgb(231, 38, 38);
+            }
         }
     }
 
 }
 
+// remove display of "take picture option"
+// on laptop screen or bigger devices
+@include laptop {
+    label:nth-of-type(2) {
+        display: none;
+    }
+}
 
 @include tablet {
     .textContainer {
@@ -113,12 +136,20 @@
             display: flex;
             gap: 10px;
 
-            label,button {
+            label,
+            button {
                 font-size: 1.3rem;
             }
         }
 
+
+        label:nth-of-type(2) {
+            display: none;
+        }
+
     }
+
+
 }
 
 @include phablet {
@@ -156,13 +187,21 @@
             gap: 10px;
 
 
-            label,button {
+            label,
+            button {
                 font-size: 1.1rem;
             }
 
 
         }
 
+        .allowedMessage {
+            font-size: 0.9rem;
+        }
+
+        .errorMessage {
+            font-size: 0.9rem;
+        }
     }
 }
 
@@ -177,6 +216,7 @@
 
         p {
 
+            text-align: justify;
             font-size: 0.9rem;
             width: 80%;
         }
@@ -188,7 +228,7 @@
         .previewImage {
             object-fit: contain;
             max-height: 250px;
-            
+
         }
 
         .uploadVector {
@@ -197,20 +237,28 @@
         }
 
         .optionsContainer {
-            margin-top: 15px;
             display: flex;
-            gap: 10px;
             flex-direction: column;
+            text-align: center;
             align-items: center;
+            justify-content: center;
+            gap: 5px;
 
-            label,button {
+            label,
+            button {
+                margin-top: 5px;
                 font-size: 0.8rem;
                 padding: 5px 10px;
                 border-radius: 5px;
             }
-
-
         }
 
+        .allowedMessage {
+            font-size: 0.6rem;
+        }
+
+        .errorMessage {
+            font-size: 0.6rem;
+        }
     }
 }

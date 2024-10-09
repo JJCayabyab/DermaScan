@@ -7,7 +7,7 @@ const Home = () => {
   const displayDisease = diseaseData.map((data, index) => {
     return (
       <div key={index} className={styles.diseaseImgContainer}>
-        <img src={data.image}  alt={data.altText}/>
+        <img src={data.image} alt={data.altText} />
         <p>{data.name}</p>
       </div>
     )
@@ -22,7 +22,10 @@ const Home = () => {
           <div className={styles.circle1}></div>
           <h1>Detect Skin Disease from Your Face Instantly.</h1>
           <h4>Upload a photo and get instant insights on potential skin conditions</h4>
-          <button className={styles.heroButton}>Try Now</button>
+          <a href='/analyze'>
+            <button className={styles.heroButton}>Try Now</button>
+          </a>
+
 
         </div>
 

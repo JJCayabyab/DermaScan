@@ -74,14 +74,12 @@
   display: none;
 }
 
-@media screen and (min-width: 481px) and (max-width: 768px) and (max-width: 520px) {
-  .logoContainer {
-    visibility: hidden;
-  }
-}
 @media screen and (min-width: 481px) and (max-width: 768px) {
   .logoContainer {
     margin-left: 50px !important;
+  }
+  .logoContainer .siteName {
+    font-size: 2.4rem !important;
   }
   .menuContainer {
     margin-right: 50px !important;
@@ -99,14 +97,12 @@
     margin-bottom: 20px;
   }
 }
-@media screen and (max-width: 480px) and (max-width: 520px) {
-  .logoContainer {
-    visibility: hidden;
-  }
-}
 @media screen and (max-width: 480px) {
   .logoContainer {
     margin-left: 20px !important;
+  }
+  .logoContainer .siteName {
+    font-size: 1.9rem !important;
   }
   .menuContainer {
     margin-right: 20px !important;

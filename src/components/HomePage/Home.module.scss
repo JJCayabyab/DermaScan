@@ -32,7 +32,6 @@
         .heroButton {
             position: relative;
             z-index: 10;
-
         }
 
         h1 {
@@ -52,15 +51,7 @@
         }
 
         .heroButton {
-            font-family: $body-font;
-            background-color: $primary-color;
-            margin-top: 30px;
-            padding: 10px 15px;
-            font-size: 1.5rem;
-            border: none;
-            border-radius: 5px;
-            color: white;
-            z-index: 10;
+          @include button
         }
     }
 

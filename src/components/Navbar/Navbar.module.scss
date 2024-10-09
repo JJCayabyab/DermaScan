@@ -95,16 +95,19 @@
 
 @include phablet {
 
-    @media screen and (max-width: 520px) {
+    // @media screen and (max-width: 520px) {
 
-        .logoContainer {
-            visibility: hidden;
-        }
+    //     .logoContainer {
+    //         visibility: hidden;
+    //     }
 
-    }
+    // }
 
     .logoContainer {
         margin-left: 50px !important;
+        .siteName {
+            font-size: 2.4rem !important;
+        }
     }
 
     .menuContainer {
@@ -132,15 +135,12 @@
 }
 
 @include mobile {
-    @media screen and (max-width: 520px) {
-        .logoContainer {
-            visibility: hidden;
-        }
-
-    }
 
     .logoContainer {
         margin-left: 20px !important;
+        .siteName {
+            font-size: 1.9rem !important;
+        }
     }
 
     .menuContainer {
