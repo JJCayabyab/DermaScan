@@ -22,11 +22,15 @@ const Home = () => {
           <div className={styles.circle1}></div>
           <h1>Detect Skin Disease from Your Face Instantly.</h1>
           <h4>Upload a photo and get instant insights on potential skin conditions</h4>
+<<<<<<< Updated upstream
           <a href='/analyze'>
             <button className={styles.heroButton}>Try Now</button>
           </a>
 
 
+=======
+          <button className={styles.heroButton}>Get Started</button>
+>>>>>>> Stashed changes
         </div>
 
 
