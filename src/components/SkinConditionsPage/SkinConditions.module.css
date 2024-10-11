@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  color: white;
+  color: white !important;
   background-color: #008E8E;
   padding: 20px 0px;
   text-align: center;

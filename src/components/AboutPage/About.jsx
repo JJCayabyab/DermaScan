@@ -44,8 +44,8 @@ const About = () => {
     return (
         <>
             <Navbar />
-
-
+            <div className={styles.circle1}></div>
+            <div className={styles.circle2}></div>
             <div className={styles.infoWrapper}>
                 <div className={styles.missionContainer}>
                     <div className={styles.leftSide}>
@@ -56,8 +56,9 @@ const About = () => {
                         <img src={missionImage} />
                     </div>
                 </div>
-
+            
                 <div className={styles.techWrapper}>
+                    
                     <h2>Our Technology</h2>
                     {displayTech}
                 </div>

@@ -24,10 +24,14 @@
 }
 .detailsContainer .imageContainer {
   display: flex;
-  gap: 15px;
+  gap: 32px;
   width: 100%;
   justify-content: center;
   margin-top: 10px;
+  margin: 16px;
+}
+.detailsContainer .imageContainer img {
+  width: 40%;
 }
 .detailsContainer .textContainer {
   width: 80%;

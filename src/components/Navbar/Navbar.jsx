@@ -30,6 +30,7 @@ const Navbar = () => {
 
         <div className={styles.menuContainer}>
           <ul className={styles.navLinks}>
+          <li className={styles.hideOnSmall}><a href="/">Home</a></li>
             <li className={styles.hideOnSmall}><a href="/analyze">Analyze</a></li>
             <li className={styles.hideOnSmall}><a href="/skin-conditions">Skin Diseases</a></li>
             <li className={styles.hideOnSmall}><a href="/about">About</a></li>
