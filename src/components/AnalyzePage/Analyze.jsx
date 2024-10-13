@@ -6,7 +6,10 @@ import { useState } from 'react';
 const Analyze = () => {
   const [imageSrc, setImageSrc] = useState(null); // to check if user has uploaded a file
   const [errorMessage, setErrorMessage] = useState(''); // to store error message
+  const [isModalOpen, setIsModalOpen] = useState(false); // to manage modal visibility
 
+
+  //to handle allowed file
   const handleUploadChange = (event) => {
     const file = event.target.files[0];
     const allowedTypes = ['image/jpeg', 'image/png'];
@@ -29,6 +32,17 @@ const Analyze = () => {
     setErrorMessage(''); // Clear the error when clearing the image
   };
 
+
+  //open results
+  const openResults = () => {
+    setIsModalOpen(true);
+  };
+
+
+  //close results
+  const closeResults = () => {
+    setIsModalOpen(false);
+  };
   return (
     <div>
       <Navbar />
@@ -57,7 +71,7 @@ const Analyze = () => {
             if (imageSrc) {
               return (
                 <>
-                  <button className={styles.analyzeButton}>Analyze</button>
+                  <button className={styles.analyzeButton} onClick={openResults}>Analyze</button>
                   <button className={styles.clearButton} onClick={handleClear}>Clear</button>
                 </>
               );
@@ -91,6 +105,17 @@ const Analyze = () => {
             }
           })()}
         </div>
+
+        {/*for modal of results*/}
+        {isModalOpen && (
+          <div className={styles.resultsWrapper}>
+            <div className={styles.results}>
+              <button onClick={closeResults}><svg xmlns="http://www.w3.org/2000/svg" height="35px" viewBox="0 -960 960 960" width="35px" fill="#00000"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" /></svg></button>
+              <p>Your image has been analyzed. Here are the results...</p>
+
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
