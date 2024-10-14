@@ -86,25 +86,25 @@
 
 }
 
-
-
-
 .menuButton {
     display: none;
 }
 
+//to show navigation menu 
+@media screen and (max-width: 895px) {
+    .hideOnSmall {
+        display: none;
+    }
+
+    .menuButton {
+        display: block;
+    }
+}
+
 @include phablet {
-
-    // @media screen and (max-width: 520px) {
-
-    //     .logoContainer {
-    //         visibility: hidden;
-    //     }
-
-    // }
-
     .logoContainer {
         margin-left: 50px !important;
+
         .siteName {
             font-size: 2.4rem !important;
         }
@@ -119,13 +119,7 @@
         font-size: 1rem;
     }
 
-    .hideOnSmall {
-        display: none;
-    }
-
-    .menuButton {
-        display: block;
-    }
+ 
 
     .options {
         li {
@@ -138,6 +132,7 @@
 
     .logoContainer {
         margin-left: 20px !important;
+
         .siteName {
             font-size: 1.9rem !important;
         }
@@ -148,14 +143,7 @@
 
     }
 
-    .hideOnSmall {
-        display: none;
-    }
-
-    .menuButton {
-        display: block;
-    }
-
+  
     .options {
         li {
             margin-bottom: 20px;

@@ -32,7 +32,7 @@ const DiseaseDetails = () => {
         <small>Source: <a href={disease.link} target='_blank'>{disease.source}</a></small>
 
         <div className={styles.imageContainer}>
-          {/* Check if the definition exists before displaying */}
+          {/* Check if the image exists before displaying*/}
           {disease.img1 && (
             <img src={disease.img1} alt={`${disease.altText}, image 1`} />
           )}
@@ -42,39 +42,19 @@ const DiseaseDetails = () => {
         </div>
 
         <div className={styles.textContainer}>
-          {/* Check if the definition exists before displaying */}
-          {disease.definition && (
-            <>
-              <p>{formatText(disease.definition)}</p>
-              <br />
-            </>
-          )}
+            <p>{formatText(disease.definition)}</p>
+            <br />
 
-          {/* Check if causes exist before displaying */}
-          {disease.causes && (
-            <>
-              <h2>What leads to {disease.name} formation</h2>
-              <p>{formatText(disease.causes)}</p>
-              <br />
-            </>
-          )}
+            <h2>What leads to {disease.name} formation</h2>
+            <p>{formatText(disease.causes)}</p>
+            <br />
 
-          {/* Check if symptoms exist before displaying */}
-          {disease.symptops && (
-            <>
-              <h2>Clinical features of {disease.name}</h2>
-              <p>{formatText(disease.symptops)}</p>
-              <br />
-            </>
-          )}
+            <h2>Clinical features of {disease?.name}</h2>
+            <p>{formatText(disease.symptops)}</p>
+            <br />
 
-          {/* Check if treatment exists before displaying */}
-          {disease.treatment && (
-            <>
-              <h2>Treatment</h2>
-              <p>{formatText(disease.treatment)}</p>
-            </>
-          )}
+            <h2>Treatment</h2>
+            <p>{formatText(disease?.treatment)}</p>
         </div>
       </div>
     </>
