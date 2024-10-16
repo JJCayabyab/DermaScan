@@ -1,0 +1,217 @@
+.textContainer {
+  text-align: center;
+  margin-top: 100px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.textContainer h1 {
+  font-family: "Oswald", sans-serif;
+  font-size: 3rem;
+}
+.textContainer p {
+  font-family: "Inter", sans-serif;
+  font-size: 1.4rem;
+  width: 45%;
+  color: #606060;
+}
+
+.uploadCotainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px dotted #008E8E;
+  padding: 10px 15px;
+  margin: auto;
+  border-radius: 20px;
+  overflow: hidden;
+  width: 85%;
+  max-width: 700px;
+  overflow: hidden;
+  margin-top: 30px;
+  justify-content: center;
+}
+.uploadCotainer .previewImage {
+  -o-object-fit: contain;
+     object-fit: contain;
+  max-height: 340px;
+  max-width: 95%;
+}
+.uploadCotainer .uploadVector {
+  width: 60%;
+  height: auto;
+}
+.uploadCotainer .allowedMessage {
+  font-style: italic;
+  text-align: center;
+  width: 80%;
+  color: #606060;
+  font-weight: 350;
+}
+.uploadCotainer .errorMessage {
+  margin-top: 5px;
+  text-align: center;
+  width: 80%;
+  color: #606060;
+  font-weight: 350;
+  color: rgb(204, 8, 8);
+}
+.uploadCotainer .optionsContainer {
+  display: flex;
+  gap: 10px;
+}
+.uploadCotainer .optionsContainer label,
+.uploadCotainer .optionsContainer button {
+  font-family: "Inter", sans-serif;
+  background-color: #008E8E;
+  margin-top: 30px;
+  padding: 10px 15px;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  z-index: 10;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+.uploadCotainer .optionsContainer label:hover,
+.uploadCotainer .optionsContainer button:hover {
+  background-color: rgb(14, 197, 197);
+}
+.uploadCotainer .optionsContainer .hiddenInput {
+  display: none;
+}
+.uploadCotainer .optionsContainer button:nth-of-type(2) {
+  background-color: rgb(204, 8, 8);
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+.uploadCotainer .optionsContainer button:nth-of-type(2):hover {
+  background-color: rgb(231, 38, 38);
+}
+
+@media screen and (min-width: 1025px) {
+  label:nth-of-type(2) {
+    display: none;
+  }
+}
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .textContainer {
+    margin-top: 80px;
+  }
+  .textContainer h1 {
+    font-size: 2.7rem;
+  }
+  .textContainer p {
+    font-size: 1.3rem;
+    width: 60%;
+  }
+  .uploadCotainer {
+    width: 85%;
+  }
+  .uploadCotainer .previewImage {
+    -o-object-fit: contain;
+       object-fit: contain;
+    max-height: 300px;
+  }
+  .uploadCotainer .uploadVector {
+    width: 60%;
+    height: auto;
+  }
+  .uploadCotainer .optionsContainer {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+  }
+  .uploadCotainer .optionsContainer label,
+  .uploadCotainer .optionsContainer button {
+    font-size: 1.3rem;
+  }
+  .uploadCotainer label:nth-of-type(2) {
+    display: none;
+  }
+}
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .textContainer {
+    margin-top: 80px;
+  }
+  .textContainer h1 {
+    font-size: 2.2rem;
+  }
+  .textContainer p {
+    font-size: 1rem;
+    width: 65%;
+  }
+  .uploadCotainer {
+    width: 80%;
+  }
+  .uploadCotainer .previewImage {
+    -o-object-fit: contain;
+       object-fit: contain;
+    max-height: 250px;
+  }
+  .uploadCotainer .uploadVector {
+    width: 60%;
+    height: auto;
+  }
+  .uploadCotainer .optionsContainer {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+  }
+  .uploadCotainer .optionsContainer label,
+  .uploadCotainer .optionsContainer button {
+    font-size: 1.1rem;
+  }
+  .uploadCotainer .allowedMessage {
+    font-size: 0.9rem;
+  }
+  .uploadCotainer .errorMessage {
+    font-size: 0.9rem;
+  }
+}
+@media screen and (max-width: 480px) {
+  .textContainer {
+    margin-top: 80px;
+  }
+  .textContainer h1 {
+    font-size: 1.7rem;
+  }
+  .textContainer p {
+    text-align: justify;
+    font-size: 0.9rem;
+    width: 80%;
+  }
+  .uploadCotainer {
+    width: 80%;
+  }
+  .uploadCotainer .previewImage {
+    -o-object-fit: contain;
+       object-fit: contain;
+    max-height: 250px;
+  }
+  .uploadCotainer .uploadVector {
+    width: 85%;
+    height: auto;
+  }
+  .uploadCotainer .optionsContainer {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+  .uploadCotainer .optionsContainer label,
+  .uploadCotainer .optionsContainer button {
+    margin-top: 5px;
+    font-size: 0.8rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  .uploadCotainer .allowedMessage {
+    font-size: 0.6rem;
+  }
+  .uploadCotainer .errorMessage {
+    font-size: 0.6rem;
+  }
+}/*# sourceMappingURL=Analyze.module.css.map */

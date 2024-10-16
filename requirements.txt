@@ -1,0 +1,11 @@
+numpy
+matplotlib
+tensorflow
+xgboost
+joblib
+tensorflowjs
+pillow
+fastapi uvicorn
+scikit-learn
+opencv-python
+python-multipart

@@ -1,0 +1,42 @@
+//button
+@mixin button{
+    font-family: $body-font;
+    background-color: $primary-color;
+    margin-top: 30px;
+    padding: 10px 15px;
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    z-index: 10;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+
+    &:hover{
+        background-color: rgb(14, 197, 197);
+    }
+}
+
+//responsive layout
+@mixin mobile {
+    @media screen and (max-width: 480px) {
+        @content;
+    }
+}
+
+@mixin phablet {
+    @media screen and (min-width: 481px) and (max-width: 768px) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media screen and (min-width: 769px) and (max-width: 1024px) {
+        @content;
+    }
+}
+
+@mixin laptop {
+    @media screen and (min-width:1025px) {
+        @content;
+    }
+}

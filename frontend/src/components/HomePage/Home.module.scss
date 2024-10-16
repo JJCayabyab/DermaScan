@@ -1,0 +1,404 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+
+
+.heroContainer {
+    display: flex;
+    margin-top: 100px;
+    gap: 30px;
+    position: relative;
+    padding: 0px 100px;
+
+    .heroLeftContainer {
+        width: 60%;
+        position: relative;
+
+        /* Add this to create a stacking context */
+        .circle1 {
+            width: 400px;
+            height: 400px;
+            background-color: #42a8a851;
+            margin-left: -150px;
+            border-radius: 50%;
+            margin-top: 30px;
+            position: absolute;
+            left: 0;
+            z-index: 1;
+        }
+
+        h1,
+        h4,
+        .heroButton {
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-family: $header-font;
+            color: $primary-color;
+            font-size: 4.3rem;
+            font-weight: 500;
+            line-height: 1.3;
+        }
+
+        h4 {
+            margin-top: 10px;
+            font-family: $body-font;
+            color: #494949;
+            font-weight: 500;
+            font-size: 1.3rem;
+        }
+
+        .heroButton {
+          @include button
+        }
+    }
+
+    .heroRightContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        width: 50%;
+
+        .circle2 {
+            width: 10vw;
+            height: 10vw;
+            background-color: #42a8a851;
+            border-radius: 50%;
+            position: absolute;
+            right: 80px;
+            top: 330px;
+            z-index: 1;
+        }
+
+        .heroImage {
+            z-index: 10;
+            width: 450px;
+        }
+
+    }
+}
+
+.infoContainer {
+    background-color: $primary-color;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    margin: 20px auto;
+    padding: 40px 0px;
+    z-index: 10;
+    position: relative;
+
+    hr {
+        height: 5px;
+        background-color: #008E8E;
+        border: none;
+        width: 15%;
+    }
+
+    h2 {
+        font-family: $header-font;
+        text-align: center;
+        color: white;
+        font-size: 2.7rem;
+        font-weight: 500;
+    }
+
+    p {
+        text-align: justify;
+        width: 50%;
+        color: white;
+        font-family: $body-font;
+        font-size: 1rem;
+    }
+}
+
+
+
+
+.detectable {
+    margin: 0px 100px;
+    font-family: $header-font;
+    color: $primary-color;
+    font-size: 2.7rem;
+    font-weight: 500;
+}
+
+.diseaseContainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    overflow: hidden;
+
+    .diseaseImgContainer {
+        width: 20%;
+        margin: 10px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            width: 200px; // Make the image fill the container width
+            height: 200px; // Make the image fill the container height
+            border-radius: 50%; // Circle the image
+            object-fit: cover; // Ensure the image covers the area without distortion
+        }
+
+        p {
+            text-align: center;
+            color: #494949;
+            font-family: $body-font;
+            font-size: 1rem;
+            font-weight: 400;
+            margin-top: 5px; // Space between image and text
+        }
+    }
+}
+
+
+@media screen and (max-width:768px) {
+    .circle1 {
+        width: 250px;
+        height: 250px;
+    }
+}
+
+
+//for images in detectable condition
+@media screen and (max-width:1030px) {
+    .diseaseContainer {
+        .diseaseImgContainer {
+            width: 25%;
+
+            img {
+                width: 190px;
+                height: 190px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 755px) {
+    .diseaseContainer .diseaseImgContainer img {
+        width: 160px; // Adjust image size for smaller screens
+        height: 160px;
+    }
+}
+
+@media screen and (max-width: 655px) {
+    .diseaseContainer .diseaseImgContainer img {
+        width: 130px; // Further adjust image size for very small screens
+        height: 130px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .diseaseContainer {
+        .diseaseImgContainer {
+            width: 40%;
+
+            img {
+                width: 150px; // Further adjust image size for very small screens
+                height: 150px;
+            }
+        }
+    }
+
+}
+
+
+
+@media screen and (max-width: 425px) {
+    .diseaseContainer {
+        .diseaseImgContainer {
+            width: 40%;
+
+            img {
+                width: 120px; // Further adjust image size for very small screens
+                height: 120px;
+            }
+        }
+    }
+
+}
+
+
+
+//for tablet size responsiveness
+@include tablet {
+    .heroContainer {
+        .heroLeftContainer {
+            width: 60%;
+
+            h1 {
+                font-size: 3.5rem;
+            }
+        }
+
+        .heroRightContainer {
+            width: 35%;
+
+            .heroImage {
+                width: 400px;
+            }
+        }
+    }
+
+
+    .infoContainer {
+        p {
+            width: 60%;
+        }
+    }
+
+    @media screen and (max-width:950px) {
+        .diseaseContainer {
+            .diseaseImgContainer {
+
+                img {
+                    width: 180px;
+                    height: 180px;
+                }
+
+            }
+        }
+
+    }
+}
+
+
+//for phablet size responsiveness
+@include phablet {
+    .heroContainer {
+        flex-direction: column;
+        align-items: center;
+        padding: 0px 60px;
+
+        .heroLeftContainer {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            text-align: center;
+            align-items: center;
+
+            .circle1 {
+                width: 350px;
+                height: 350px;
+                margin-left: -210px;
+            }
+
+            .heroButton {
+                margin-top: 20px;
+                font-size: 1.2rem;
+                border-radius: 4px;
+            }
+
+            h1 {
+                font-size: 3rem;
+            }
+
+            h4 {
+                font-size: 1.2rem;
+            }
+        }
+
+        .heroRightContainer {
+            width: 35%;
+
+            .heroImage {
+                width: 350px;
+            }
+        }
+    }
+
+
+
+    .detectable {
+        font-size: 2.4rem;
+        text-align: center;
+        margin: 0;
+    }
+
+    .infoContainer {
+
+        h2 {
+            font-size: 2.4rem;
+        }
+
+        p {
+            width: 70%;
+            font-size: 0.9rem;
+        }
+    }
+
+}
+
+//for mobile size responsiveness
+@include mobile {
+    .heroContainer {
+        padding: 0px 30px;
+        flex-direction: column;
+        align-items: center;
+
+        .heroLeftContainer {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            text-align: center;
+            align-items: center;
+
+            .circle1 {
+                width: 300px;
+                height: 300px;
+            }
+
+            .heroButton {
+                margin-top: 20px;
+                font-size: 1rem;
+                border-radius: 4px;
+            }
+
+            h1 {
+                font-size: 2.1rem;
+            }
+
+            h4 {
+                font-size: 0.9rem;
+            }
+        }
+
+        .heroRightContainer {
+            width: 35%;
+
+            .heroImage {
+                width: 300px;
+            }
+        }
+    }
+
+
+    .detectable {
+        font-size: 2rem;
+        text-align: center;
+        margin: 0;
+    }
+
+    .infoContainer {
+
+        h2 {
+            font-size: 2rem;
+        }
+
+        p {
+            width: 80%;
+            font-size: 0.8rem;
+        }
+    }
+}
