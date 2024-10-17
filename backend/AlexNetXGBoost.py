@@ -28,7 +28,7 @@ class AlexNetFC6(nn.Module):
         super(AlexNetFC6, self).__init__()
         alexnet = models.alexnet(pretrained=False)
         self.features = alexnet.features  # Retain convolutional layers
-        self.pooling = nn.AdaptiveAvgPool2d((6, 6)
+        self.pooling = nn.AdaptiveAvgPool2d((6, 6))
         self.fc6 = nn.Sequential(
             nn.Dropout(0.5),
             nn.Linear(9216, 4096),
