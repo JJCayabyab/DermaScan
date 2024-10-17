@@ -10,6 +10,8 @@ const Analyze = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // to manage modal visibility
   const [alexnetResult, setAlexnetResult] = useState(null); // Store AlexNet prediction image
   const [xgboostResult, setXgboostResult] = useState(null); // Store XGBoost prediction image
+  const [alexnetTextResult, setAlexnetTextResult] = useState(null); // Store AlexNet text result
+  const [xgboostTextResult, setXgboostTextResult] = useState(null); // Store XGBoost text result
 
   const [uploadedFile, setUploadedFile] = useState(null);  // State to store the uploaded file
 
@@ -18,17 +20,17 @@ const Analyze = () => {
     const allowedTypes = ['image/jpeg', 'image/png'];
 
     if (file) {
-        if (allowedTypes.includes(file.type)) {
-            setImageSrc(URL.createObjectURL(file));
-            setUploadedFile(file);  // Store the uploaded file in state
-            setErrorMessage('');
-        } else {
-            setImageSrc(null);
-            setUploadedFile(null);  // Clear the file in state
-            setErrorMessage('Unsupported file type! Please upload a JPG, JPEG, or PNG image.');
-        }
+      if (allowedTypes.includes(file.type)) {
+        setImageSrc(URL.createObjectURL(file));
+        setUploadedFile(file);  // Store the uploaded file in state
+        setErrorMessage('');
+      } else {
+        setImageSrc(null);
+        setUploadedFile(null);  // Clear the file in state
+        setErrorMessage('Unsupported file type! Please upload a JPG, JPEG, or PNG image.');
+      }
     }
-};
+  };
 
   // Handle clear if the user uploads an image
   const handleClear = () => {
@@ -38,30 +40,32 @@ const Analyze = () => {
 
   const openResults = async () => {
     console.log("Analyze button clicked!");  // Check if the function is triggered
-  
+    console.log(alexnetResult);
     if (!uploadedFile) {
       console.log("No file selected.");
       setErrorMessage('No file uploaded.');
       return;
     }
-  
+
     const formData = new FormData();
     formData.append('file', uploadedFile);  // Ensure the file is being sent
-  
+
     try {
-      const response = await axios.post('http://127.0.0.1:8000/predict', formData, {
+      const response = await axios.post('http://192.168.1.20:8000/predict', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-  
+
       console.log("API response:", response.data);  // Log the API response to check it
-  
-      const { alexnet_image, xgboost_image } = response.data;
-  
+
+      const { alexnet_image, xgboost_image,alexnet_prediction,xgboost_prediction } = response.data;
+
       setAlexnetResult(alexnet_image);
       setXgboostResult(xgboost_image);
-  
+      setAlexnetTextResult(alexnet_prediction);  // Set AlexNet text result
+      setXgboostTextResult(xgboost_prediction);  // Set XGBoost text result
+
       setIsModalOpen(true);  // Open modal to display the images
     } catch (error) {
       console.error("Error analyzing the image:", error);
@@ -72,6 +76,8 @@ const Analyze = () => {
     setIsModalOpen(false);
     setAlexnetResult(null);
     setXgboostResult(null);
+    setAlexnetTextResult(null);  
+    setXgboostTextResult(null);  
   };
 
   return (
@@ -143,14 +149,16 @@ const Analyze = () => {
               <button onClick={closeResults}><svg xmlns="http://www.w3.org/2000/svg" height="35px" viewBox="0 -960 960 960" width="35px" fill="#00000"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" /></svg></button>
               <div className={styles.resultImages}>
                 {alexnetResult && (
-                  <div>
+                  <div className={styles.alexContainer}>
                     <p>AlexNet Prediction</p>
+                    <h2>{alexnetTextResult}</h2>
                     <img src={`data:image/png;base64,${alexnetResult}`} alt="AlexNet Prediction" />
                   </div>
                 )}
                 {xgboostResult && (
-                  <div>
+                <div className={styles.xgContainer}>
                     <p>AlexNet-XGBoost Prediction</p>
+                    <h2>{xgboostTextResult}</h2>
                     <img src={`data:image/png;base64,${xgboostResult}`} alt="XGBoost Prediction" />
                   </div>
                 )}

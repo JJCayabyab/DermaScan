@@ -2,41 +2,98 @@ from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
-import tensorflow as tf
-from tensorflow.keras.models import load_model, Model
+import torch
+import torch.nn as nn
+import torchvision.transforms as transforms
+import torchvision.models as models
 import xgboost as xgb
-from sklearn.preprocessing import StandardScaler
+import joblib
 import cv2
 import base64
 from io import BytesIO
 from PIL import Image
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://127.0.0.1:5173"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Load models
-alexnet_model = load_model('backend/alexnet.keras')
+# Define constants
+INPUT_SIZE = (227, 227)  # Image input size expected by AlexNet
+CATEGORIES = ['Acne', 'Eczema', 'Rosacea', 'Psoriasis', 'Seborrheic Dermatitis', 'Perioral Dermatitis', 'Tinea Faciei']
+
+# Define a custom AlexNet that stops at fc6
+class AlexNetFC6(nn.Module):
+    def __init__(self):
+        super(AlexNetFC6, self).__init__()
+        alexnet = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained=False)
+        self.features = alexnet.features  # Retain convolutional layers
+        # Only include layers up to fc6 (first fully connected layer)
+        self.pooling = nn.AdaptiveAvgPool2d((6, 6))
+        self.fc6 = nn.Sequential(
+            nn.Dropout(0.6),
+            nn.Linear(9216, 4096),
+            nn.ReLU(inplace=True)
+        )
+    
+    def forward(self, x):
+        x = self.features(x)  # Pass input through convolutional layers
+        x = torch.flatten(x, 1)  # Flatten before fully connected layers
+        x = self.fc6(x)  # Pass through fc6
+        return x
+
+# Instantiate the modified AlexNet model for hybrid AlexNet-XGBoost
+alexnet_fc6 = AlexNetFC6()
+
+# Load the pre-trained weights for hybrid AlexNet-XGBoost
+alexnet_fc6.load_state_dict(torch.load('backend/alexnet.pth', map_location=torch.device('cpu')), strict=False)
+
+# Set the model to evaluation mode
+alexnet_fc6.eval()
+
+# Load the pretrained XGBoost model
 xgboost_model = xgb.XGBClassifier()
 xgboost_model.load_model('backend/xgboost.json')
 
-# Feature extractor from AlexNet
-feature_extractor = Model(inputs=alexnet_model.input, outputs=alexnet_model.get_layer('fc6').output)
+# Load the pre-fitted StandardScaler
+scaler = joblib.load('backend/scaler.joblib')
 
-CATEGORIES = ['Acne', 'Eczema', 'Rosacea', 'Psoriasis', 'Seborrheic Dermatitis', 'Perioral Dermatitis', 'Tinea Faciei']
+# Load the standard AlexNet model
+alexnet_model = models.alexnet(pretrained=False)
+alexnet_model.classifier = nn.Sequential(
+    nn.Dropout(0.6),  
+    nn.Linear(9216, 4096),  
+    nn.ReLU(inplace=True),
+    
+    nn.Dropout(0.6),  
+    nn.Linear(4096, 4096),  
+    nn.ReLU(inplace=True),
+    
+    nn.Linear(4096, len(CATEGORIES))  # Final output layer
+)
 
+# Load the pre-trained weights for standard AlexNet
+alexnet_model.load_state_dict(torch.load('backend/alexnet.pth', map_location=torch.device('cpu')))
+
+# Set the standard AlexNet model to evaluation mode
+alexnet_model.eval()
+
+# Preprocessing function for the input image
 def preprocess_image(image: Image.Image):
-    image = image.resize((227, 227))
-    image = np.array(image).astype(np.float32) / 255.0
-    image = (image - np.mean(image)) / (np.std(image) + 1e-7)
-    image = np.expand_dims(image, axis=0)
-    return image
+    transform = transforms.Compose([
+        transforms.Resize(INPUT_SIZE),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
+    ])
+    return transform(image).unsqueeze(0)  # Add batch dimension
 
 def np_to_base64(image_np):
     image_pil = Image.fromarray(cv2.cvtColor(image_np, cv2.COLOR_BGR2RGB))
@@ -55,41 +112,56 @@ def add_prediction_text(image, text, position):
 
 def predict_with_alexnet(image: Image.Image):
     preprocessed_image = preprocess_image(image)
-    predictions = alexnet_model.predict(preprocessed_image)
-    predicted_class = CATEGORIES[np.argmax(predictions, axis=1)[0]]
+    with torch.no_grad():
+        predictions = alexnet_model(preprocessed_image)
+    predicted_class = CATEGORIES[torch.argmax(predictions, dim=1).item()]
     return predicted_class
 
 def predict_with_xgboost(image: Image.Image):
-    preprocessed_image = preprocess_image(image)
-    features = feature_extractor.predict(preprocessed_image)
-    scaler = StandardScaler()
-    features_scaled = scaler.fit_transform(features)
+    # Step 1: Preprocess the image
+    image_tensor = preprocess_image(image)
+
+    # Step 2: Extract features using the modified AlexNet (up to fc6)
+    with torch.no_grad():
+        features = alexnet_fc6(image_tensor)
+
+    # Step 3: Scale the features using the pre-fitted scaler
+    features_scaled = scaler.transform(features.cpu().numpy())
+
+    # Step 4: Predict using the XGBoost model
     prediction = xgboost_model.predict(features_scaled)
     return CATEGORIES[int(prediction[0])]
 
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
-    contents = await file.read()
-    img_np = np.frombuffer(contents, np.uint8)
-    image = cv2.imdecode(img_np, cv2.IMREAD_COLOR)
-    pil_image = Image.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+    try:
+        contents = await file.read()
+        img_np = np.frombuffer(contents, np.uint8)
+        image = cv2.imdecode(img_np, cv2.IMREAD_COLOR)
+        pil_image = Image.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
 
-    alexnet_image = image.copy()  # Create a copy for AlexNet prediction
-    xgboost_image = image.copy()  # Create a copy for XGBoost prediction
+        logging.info("Image successfully loaded and converted")
+        
+        alexnet_image = image.copy()  # Create a copy for AlexNet prediction
+        xgboost_image = image.copy()  # Create a copy for XGBoost prediction
 
-    # Get predictions
-    alexnet_prediction = predict_with_alexnet(pil_image)
-    xgboost_prediction = predict_with_xgboost(pil_image)
+        # Get predictions
+        alexnet_prediction = predict_with_alexnet(pil_image)
+        logging.info(f"AlexNet Prediction: {alexnet_prediction}")
+        
+        xgboost_prediction = predict_with_xgboost(pil_image)
+        logging.info(f"XGBoost Prediction: {xgboost_prediction}")
 
-    # Draw predictions
-    add_prediction_text(alexnet_image, f"AlexNet: {alexnet_prediction}", "top")
-    add_prediction_text(xgboost_image, f"AlexNet-XGBoost: {xgboost_prediction}", "bottom")
+        # Convert images to base64
+        alexnet_image_base64 = np_to_base64(alexnet_image)
+        xgboost_image_base64 = np_to_base64(xgboost_image)
 
-    # Convert images to base64
-    alexnet_image_base64 = np_to_base64(alexnet_image)
-    xgboost_image_base64 = np_to_base64(xgboost_image)
-
-    return JSONResponse({
-        "alexnet_image": alexnet_image_base64,
-        "xgboost_image": xgboost_image_base64,
-    })
+        return JSONResponse({
+            "alexnet_image": alexnet_image_base64,
+            "xgboost_image": xgboost_image_base64,
+            "alexnet_prediction": alexnet_prediction,
+            "xgboost_prediction": xgboost_prediction
+        })
+    except Exception as e:
+        logging.error(f"Error during prediction: {e}")
+        return JSONResponse({"error": str(e)}, status_code=500)
