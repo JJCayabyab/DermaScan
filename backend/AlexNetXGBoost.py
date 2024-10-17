@@ -28,7 +28,7 @@ class AlexNetFC6(nn.Module):
         super(AlexNetFC6, self).__init__()
         alexnet = models.alexnet(pretrained=False)
         self.features = alexnet.features  # Retain convolutional layers
-        # Only include layers up to fc6 (first fully connected layer)
+        self.pooling = nn.AdaptiveAvgPool2d((6, 6)
         self.fc6 = nn.Sequential(
             nn.Dropout(0.5),
             nn.Linear(9216, 4096),
@@ -64,7 +64,7 @@ def preprocess_image(image):
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])  # Normalizing to match AlexNet
     ])
-    return transform(image).unsqueeze(0)  # Add batch dimension
+    return transform(image).unsqueeze(0)
 
 # Function to extract features using the modified AlexNet (up to fc6)
 def extract_features(image_tensor, model):
