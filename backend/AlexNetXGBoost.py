@@ -22,22 +22,33 @@ checkpoint_path = r'C:\path\to\alexnet_weights.pth'  # Path to your pretrained A
 xgboost_model_path = r'C:\path\to\xgboost_model.json'  # Path to your XGBoost model
 scaler_path = 'scaler.joblib'  # Path to the saved scaler
 
-# Load AlexNet model (for feature extraction)
-alexnet = models.alexnet(pretrained=False)
+# Define a custom AlexNet that stops at fc6
+class AlexNetFC6(nn.Module):
+    def __init__(self):
+        super(AlexNetFC6, self).__init__()
+        alexnet = models.alexnet(pretrained=False)
+        self.features = alexnet.features  # Retain convolutional layers
+        # Only include layers up to fc6 (first fully connected layer)
+        self.fc6 = nn.Sequential(
+            nn.Dropout(0.5),
+            nn.Linear(9216, 4096),
+            nn.ReLU(inplace=True)
+        )
+    
+    def forward(self, x):
+        x = self.features(x)  # Pass input through convolutional layers
+        x = torch.flatten(x, 1)  # Flatten before fully connected layers
+        x = self.fc6(x)  # Pass through fc6
+        return x
 
-# Modify the classifier, adjusting the dropout rates
-alexnet.classifier = nn.Sequential(
-    nn.Dropout(0.5),
-    nn.Linear(9216, 4096),
-    nn.ReLU(inplace=True),
-    nn.Dropout(0.5),  
-    nn.Linear(4096, 4096),
-    nn.ReLU(inplace=True),
-    nn.Linear(4096, len(cates))  
-)
+# Instantiate the modified AlexNet model
+alexnet_fc6 = AlexNetFC6()
 
-alexnet.load_state_dict(torch.load(checkpoint_path))
-alexnet.eval()  # Set the model to evaluation mode
+# Load the pre-trained weights
+alexnet_fc6.load_state_dict(torch.load(checkpoint_path), strict=False)
+
+# Set the model to evaluation mode
+alexnet_fc6.eval()
 
 # Load the pretrained XGBoost model
 xgb_model = xgb.XGBClassifier()
@@ -55,11 +66,10 @@ def preprocess_image(image):
     ])
     return transform(image).unsqueeze(0)  # Add batch dimension
 
-# Function to extract features using AlexNet
+# Function to extract features using the modified AlexNet (up to fc6)
 def extract_features(image_tensor, model):
     with torch.no_grad():
-        features = model.features(image_tensor)
-        features = features.view(features.size(0), -1)  # Flatten the features
+        features = model(image_tensor)  # Pass the image through the modified AlexNet
     return features.cpu().numpy()
 
 # Function to predict using XGBoost
@@ -67,8 +77,8 @@ def predict_with_xgboost(image):
     # Step 1: Preprocess the image
     image_tensor = preprocess_image(image)
 
-    # Step 2: Extract features using AlexNet
-    features = extract_features(image_tensor, alexnet)
+    # Step 2: Extract features using the modified AlexNet (up to fc6)
+    features = extract_features(image_tensor, alexnet_fc6)
 
     # Step 3: Scale the features using the pre-fitted scaler
     scaled_features = scaler.transform(features)
