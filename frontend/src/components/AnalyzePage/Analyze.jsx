@@ -51,7 +51,7 @@ const Analyze = () => {
     formData.append('file', uploadedFile);  // Ensure the file is being sent
 
     try {
-      const response = await axios.post('http://192.168.1.20:8000/predict', formData, {
+      const response = await axios.post('http://127.0.0.1:8000/predict', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
