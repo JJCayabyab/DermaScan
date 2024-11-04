@@ -46,7 +46,7 @@ class AlexNet(nn.Module):
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 alexnet_model = AlexNet(num_classes=CATEGORIES).to(device)
-alexnet_model.load_state_dict(torch.load('backend/alexnet.pth', weights_only=True))
+alexnet_model.load_state_dict(torch.load('backend/models/alexnet/alexnet.pth', weights_only=True))
 alexnet_model.eval() 
 
 
@@ -72,7 +72,7 @@ class AlexNetFC6(nn.Module):
 
 
 alexnet_fc6 = AlexNetFC6()
-state_dict = torch.load('backend/alexnet.pth', map_location=torch.device('cpu'))
+state_dict = torch.load('backend/models/alexnet w xgboost/feature_extractor.pth', map_location=torch.device('cpu'))
 
 # Adjust the state dictionary to match the model keys
 new_state_dict = {}
@@ -97,7 +97,7 @@ alexnet_fc6.eval()
 
 ############ XGBoost Classifier ##########
 xgboost_model = xgb.XGBClassifier()
-xgboost_model.load_model('backend/xgboost.json')
+xgboost_model.load_model('backend/models/alexnet w xgboost/xgboost.json')
 
 
 ########## CLAHE ############

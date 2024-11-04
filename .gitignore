@@ -14,7 +14,7 @@ dist-ssr
 
 # Virtual environment
 myenv/
-env/
+tool/
 
 # Editor directories and files
 .vscode/*
