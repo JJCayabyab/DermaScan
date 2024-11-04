@@ -26,13 +26,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Define constants
+########## Define constants ##########
 INPUT_SIZE = (256, 256)
 MEAN = (0.6181, 0.4643, 0.4194)
 STD = (0.1927, 0.1677, 0.1617)
 CATEGORIES = ['Acne', 'Eczema', 'Normal', 'Perioral Dermatitis', 'Psoriasis', 'Rocasea', 'Seborrheic Dermatitis', 'Tinea Faciei']
 
-# Standard AlexNet
+
+
+########## Standard AlexNet ###########
 class AlexNet(nn.Module):
     def __init__(self, num_classes=CATEGORIES):
         super(AlexNet, self).__init__()
@@ -47,14 +49,14 @@ alexnet_model = AlexNet(num_classes=CATEGORIES).to(device)
 alexnet_model.load_state_dict(torch.load('backend/alexnet.pth', weights_only=True))
 alexnet_model.eval() 
 
-# Feature Extractor AlexNet
+
+
+########## Feature Extractor AlexNet ##########
 class AlexNetFC6(nn.Module):
     def __init__(self):
         super(AlexNetFC6, self).__init__()
-        # Load AlexNet from torch hub
         alexnet = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained=False)
-        self.features = alexnet.features  # Retain convolutional layers
-        # Only include layers up to fc6 (first fully connected layer)
+        self.features = alexnet.features
         self.pooling = nn.AdaptiveAvgPool2d((6, 6))
         self.fc6 = nn.Sequential(
             nn.Dropout(0.6),
@@ -63,14 +65,13 @@ class AlexNetFC6(nn.Module):
         )
     
     def forward(self, x):
-        x = self.features(x)  # Pass input through convolutional layers
-        x = torch.flatten(x, 1)  # Flatten before fully connected layers
-        x = self.fc6(x)  # Pass through fc6
+        x = self.features(x)  
+        x = torch.flatten(x, 1)  
+        x = self.fc6(x) 
         return x
 
-# Instantiate the modified AlexNet model for hybrid AlexNet-XGBoost
-alexnet_fc6 = AlexNetFC6()
 
+alexnet_fc6 = AlexNetFC6()
 state_dict = torch.load('backend/alexnet.pth', map_location=torch.device('cpu'))
 
 # Adjust the state dictionary to match the model keys
@@ -92,34 +93,31 @@ for param in alexnet_fc6.parameters():
     param.requires_grad = False
 
 alexnet_fc6.eval()
-# XGBoost Classifier
+
+
+############ XGBoost Classifier ##########
 xgboost_model = xgb.XGBClassifier()
 xgboost_model.load_model('backend/xgboost.json')
 
 
-# CLAHE
-
+########## CLAHE ############
 class CLAHETransform:
     def __init__(self, clip_limit=2.0, tile_grid_size=(8, 8)):
         self.clip_limit = clip_limit
         self.tile_grid_size = tile_grid_size
 
     def __call__(self, img):
-        # Convert PIL Image to NumPy array
         img_np = np.array(img)
         
-        # Apply CLAHE on each channel independently if it's a color image
         if len(img_np.shape) == 3:
             channels = cv2.split(img_np)
             clahe = cv2.createCLAHE(clipLimit=self.clip_limit, tileGridSize=self.tile_grid_size)
             channels = [clahe.apply(channel) for channel in channels]
             img_np = cv2.merge(channels)
         else:
-            # Apply CLAHE on grayscale images
             clahe = cv2.createCLAHE(clipLimit=self.clip_limit, tileGridSize=self.tile_grid_size)
             img_np = clahe.apply(img_np)
 
-        # Convert back to PIL Image
         img_clahe = Image.fromarray(img_np)
         return img_clahe
 
@@ -151,6 +149,10 @@ def add_prediction_text(image, text, position):
     cv2.rectangle(image, (text_x, text_y - text_height - 5), (text_x + text_width, text_y + 5), (0, 0, 0), -1)
     cv2.putText(image, text, (text_x, text_y), font, font_scale, (255, 255, 255), 2, cv2.LINE_AA)
 
+
+
+
+########## Function to Predict using AlexNet ##########
 def predict_with_alexnet(image: Image.Image):
     preprocessed_image = preprocess_image(image)
     with torch.no_grad():
@@ -158,6 +160,9 @@ def predict_with_alexnet(image: Image.Image):
     predicted_class = CATEGORIES[torch.argmax(predictions, dim=1).item()]
     return predicted_class
 
+
+
+########## Function to Predict using AlexNet with XGBoost ##########
 def predict_with_xgboost(image: Image.Image):
     # Step 1: Preprocess the image
     image_tensor = preprocess_image(image)
@@ -170,7 +175,7 @@ def predict_with_xgboost(image: Image.Image):
     prediction = xgboost_model.predict(features)
     return CATEGORIES[int(prediction[0])]
 
-
+########## PREDICT ##########
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
     try:
