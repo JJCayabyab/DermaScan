@@ -88,6 +88,80 @@
 .uploadCotainer .optionsContainer button:nth-of-type(2):hover {
   background-color: rgb(231, 38, 38);
 }
+.uploadCotainer .loadingContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.uploadCotainer .loadingContainer .loading {
+  border: 10px solid #f3f3f3;
+  border-top: 10px solid #008E8E;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.uploadCotainer .resultsWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.uploadCotainer .resultsWrapper .results {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
+}
+.uploadCotainer .resultsWrapper .results button {
+  border: none;
+  background-color: #fff;
+  margin-bottom: 20px;
+}
+.uploadCotainer .resultsWrapper .results .resultImages {
+  display: flex;
+  gap: 50px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.uploadCotainer .resultsWrapper .results .resultImages .alexContainer {
+  width: 40%;
+}
+.uploadCotainer .resultsWrapper .results .resultImages .alexContainer img {
+  width: 100%;
+  max-height: 450px;
+}
+.uploadCotainer .resultsWrapper .results .resultImages .xgContainer {
+  width: 40%;
+}
+.uploadCotainer .resultsWrapper .results .resultImages .xgContainer img {
+  width: 100%;
+  max-height: 450px;
+}
 
 @media screen and (min-width: 1025px) {
   label:nth-of-type(2) {
@@ -168,6 +242,35 @@
   .uploadCotainer .errorMessage {
     font-size: 0.9rem;
   }
+  .uploadCotainer .resultsWrapper .results .resultImages {
+    flex-direction: column;
+    gap: 0px;
+  }
+  .uploadCotainer .resultsWrapper .results .resultImages h2 {
+    font-size: 2rem;
+  }
+  .uploadCotainer .resultsWrapper .results .resultImages p {
+    font-size: 1rem;
+  }
+  .uploadCotainer .resultsWrapper .results .resultImages .alexContainer {
+    width: 60%;
+  }
+  .uploadCotainer .resultsWrapper .results .resultImages .alexContainer img {
+    width: 100%;
+  }
+  .uploadCotainer .resultsWrapper .results .resultImages .xgContainer {
+    width: 60%;
+  }
+  .uploadCotainer .resultsWrapper .results .resultImages .xgContainer img {
+    width: 100%;
+  }
+  .loadingContainer .loading {
+    border: 8px solid #f3f3f3 !important;
+    border-top: 8px solid #008E8E !important;
+    border-radius: 50%;
+    width: 45px !important;
+    height: 45px !important;
+  }
 }
 @media screen and (max-width: 480px) {
   .textContainer {
@@ -213,5 +316,44 @@
   }
   .uploadCotainer .errorMessage {
     font-size: 0.6rem;
+  }
+  .uploadCotainer .resultImages {
+    flex-direction: column;
+    align-items: center;
+  }
+  .uploadCotainer .resultImages img {
+    max-width: 90%;
+    margin-bottom: 15px;
+  }
+  .uploadCotainer .resultsWrapper .results .resultImages {
+    flex-direction: column;
+    gap: 0px;
+  }
+  .uploadCotainer .resultsWrapper .results .resultImages h2 {
+    font-size: 1.5rem;
+  }
+  .uploadCotainer .resultsWrapper .results .resultImages p {
+    font-size: 0.9rem;
+  }
+  .uploadCotainer .resultsWrapper .results .resultImages .alexContainer {
+    width: 40%;
+  }
+  .uploadCotainer .resultsWrapper .results .resultImages .alexContainer img {
+    width: 100%;
+    max-height: 200px;
+  }
+  .uploadCotainer .resultsWrapper .results .resultImages .xgContainer {
+    width: 40%;
+  }
+  .uploadCotainer .resultsWrapper .results .resultImages .xgContainer img {
+    width: 90%;
+    max-height: 200px;
+  }
+  .loadingContainer .loading {
+    border: 7px solid #f3f3f3 !important;
+    border-top: 7px solid #008E8E !important;
+    border-radius: 50%;
+    width: 40px !important;
+    height: 40px !important;
   }
 }/*# sourceMappingURL=Analyze.module.css.map */
