@@ -27,13 +27,31 @@ app.add_middleware(
 )
 
 # Define constants
-INPUT_SIZE = (256, 256)  # Image input size expected by AlexNet
+INPUT_SIZE = (256, 256)
+MEAN = (0.6181, 0.4643, 0.4194)
+STD = (0.1927, 0.1677, 0.1617)
 CATEGORIES = ['Acne', 'Eczema', 'Normal', 'Perioral Dermatitis', 'Psoriasis', 'Rocasea', 'Seborrheic Dermatitis', 'Tinea Faciei']
 
-# Define a custom AlexNet that stops at fc6
+# Standard AlexNet
+class AlexNet(nn.Module):
+    def __init__(self, num_classes=CATEGORIES):
+        super(AlexNet, self).__init__()
+        self.model = models.alexnet(weights=None) 
+        self.model.classifier[6] = nn.Linear(4096, num_classes)  
+
+    def forward(self, x):
+        return self.model(x)
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+alexnet_model = AlexNet(num_classes=CATEGORIES).to(device)
+alexnet_model.load_state_dict(torch.load('backend/alexnet.pth', weights_only=True))
+alexnet_model.eval() 
+
+# Feature Extractor AlexNet
 class AlexNetFC6(nn.Module):
     def __init__(self):
         super(AlexNetFC6, self).__init__()
+        # Load AlexNet from torch hub
         alexnet = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained=False)
         self.features = alexnet.features  # Retain convolutional layers
         # Only include layers up to fc6 (first fully connected layer)
@@ -53,44 +71,70 @@ class AlexNetFC6(nn.Module):
 # Instantiate the modified AlexNet model for hybrid AlexNet-XGBoost
 alexnet_fc6 = AlexNetFC6()
 
-# Load the pre-trained weights for hybrid AlexNet-XGBoost
-alexnet_fc6.load_state_dict(torch.load('backend/alexnet.pth', map_location=torch.device('cpu')), strict=False)
+state_dict = torch.load('backend/alexnet.pth', map_location=torch.device('cpu'))
+
+# Adjust the state dictionary to match the model keys
+new_state_dict = {}
+for k, v in state_dict.items():
+    new_key = k.replace("model.", "") if k.startswith("model.") else k
+    if new_key in alexnet_fc6.state_dict().keys():
+        new_state_dict[new_key] = v
+
+# Load the state dictionary into the model
+alexnet_fc6.load_state_dict(new_state_dict, strict=False)
 
 # Set the model to evaluation mode
-alexnet_fc6.eval()
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+alexnet_fc6.to(device)
 
-# Load the pretrained XGBoost model
+# Freeze model parameters
+for param in alexnet_fc6.parameters():
+    param.requires_grad = False
+
+alexnet_fc6.eval()
+# XGBoost Classifier
 xgboost_model = xgb.XGBClassifier()
 xgboost_model.load_model('backend/xgboost.json')
 
-# Load the standard AlexNet model
-alexnet_model = models.alexnet(pretrained=False)
-alexnet_model.classifier = nn.Sequential(
-    nn.Dropout(0.6),  
-    nn.Linear(9216, 4096),  
-    nn.ReLU(inplace=True),
-    
-    nn.Dropout(0.6),  
-    nn.Linear(4096, 4096),  
-    nn.ReLU(inplace=True),
-    
-    nn.Linear(4096, len(CATEGORIES))  # Final output layer
-)
 
-# Load the pre-trained weights for standard AlexNet
-alexnet_model.load_state_dict(torch.load('backend/alexnet.pth', map_location=torch.device('cpu')))
+# CLAHE
 
-# Set the standard AlexNet model to evaluation mode
-alexnet_model.eval()
+class CLAHETransform:
+    def __init__(self, clip_limit=2.0, tile_grid_size=(8, 8)):
+        self.clip_limit = clip_limit
+        self.tile_grid_size = tile_grid_size
+
+    def __call__(self, img):
+        # Convert PIL Image to NumPy array
+        img_np = np.array(img)
+        
+        # Apply CLAHE on each channel independently if it's a color image
+        if len(img_np.shape) == 3:
+            channels = cv2.split(img_np)
+            clahe = cv2.createCLAHE(clipLimit=self.clip_limit, tileGridSize=self.tile_grid_size)
+            channels = [clahe.apply(channel) for channel in channels]
+            img_np = cv2.merge(channels)
+        else:
+            # Apply CLAHE on grayscale images
+            clahe = cv2.createCLAHE(clipLimit=self.clip_limit, tileGridSize=self.tile_grid_size)
+            img_np = clahe.apply(img_np)
+
+        # Convert back to PIL Image
+        img_clahe = Image.fromarray(img_np)
+        return img_clahe
+
 
 # Preprocessing function for the input image
 def preprocess_image(image: Image.Image):
+    
     transform = transforms.Compose([
+        CLAHETransform(clip_limit=2.0, tile_grid_size=(8, 8)),
         transforms.Resize(INPUT_SIZE),
+        transforms.CenterCrop((227,227)),
         transforms.ToTensor(),
-        transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
+        transforms.Normalize(mean=MEAN, std=STD)
     ])
-    return transform(image).unsqueeze(0)  # Add batch dimension
+    return transform(image).unsqueeze(0) 
 
 def np_to_base64(image_np):
     image_pil = Image.fromarray(cv2.cvtColor(image_np, cv2.COLOR_BGR2RGB))
@@ -122,12 +166,10 @@ def predict_with_xgboost(image: Image.Image):
     with torch.no_grad():
         features = alexnet_fc6(image_tensor)
 
-    # Step 3: Scale the features using the pre-fitted scaler
-    features_scaled = scaler.transform(features.cpu().numpy())
-
-    # Step 4: Predict using the XGBoost model
-    prediction = xgboost_model.predict(features_scaled)
+    # Step 3: Predict using the XGBoost model
+    prediction = xgboost_model.predict(features)
     return CATEGORIES[int(prediction[0])]
+
 
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
