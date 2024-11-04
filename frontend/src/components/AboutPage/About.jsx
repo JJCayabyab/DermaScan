@@ -41,6 +41,7 @@ const About = () => {
             </div>
         )
     })
+
     return (
         <>
             <Navbar />

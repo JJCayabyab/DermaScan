@@ -20,8 +20,8 @@ const Home = () => {
       <div className={styles.heroContainer}>
         <div className={styles.heroLeftContainer}>
           <div className={styles.circle1}></div>
-          <h1>Detect Skin Disease from Your Face Instantly.</h1>
-          <h4>Upload a photo and get instant insights on potential skin conditions</h4>
+          <h1>Detect Skin Disease from Your Face.</h1>
+          <h4>Upload a photo and get insights on potential skin conditions</h4>
           <a href='/analyze'>
             <button className={styles.heroButton}>Try Now</button>
           </a>
@@ -40,7 +40,7 @@ const Home = () => {
         <h2> Welcome to DermaScan</h2>
         <hr className={styles.line} />
         <p>
-          At DermaScan, we leverage advanced AI technology to provide fast, accurate assessments of your skin&apos;s health. From identifying early signs of common conditions like acne or eczema to offering expert guidance on more complex issues, our system is designed to empower you with the knowledge you need for proactive skincare. With DermaScan, taking charge of your skin’s well-being has never been easier or more reliable.
+          At DermaScan, we leverage advanced AI technology to provide fast, accurate assessments of your skin.  With DermaScan, taking charge of your skin’s well-being has never been easier or more reliable.
         </p>
       </div>
 
