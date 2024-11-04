@@ -15,6 +15,9 @@ const Analyze = () => {
 
   const [uploadedFile, setUploadedFile] = useState(null);  // State to store the uploaded file
 
+  const [loading, setLoading] = useState(false); // Manage loading state
+
+
   const handleUploadChange = (event) => {
     const file = event.target.files[0];
     const allowedTypes = ['image/jpeg', 'image/png'];
@@ -38,46 +41,88 @@ const Analyze = () => {
     setErrorMessage(''); // Clear the error when clearing the image
   };
 
+  // const openResults = async () => {
+  //   setLoading(true)
+  //   console.log("Analyze button clicked!");  // Check if the function is triggered
+  //   console.log(alexnetResult);
+
+  //   console.log('loading value' + loading);
+  //   if (!uploadedFile) {
+  //     console.log("No file selected.");
+  //     setErrorMessage('No file uploaded.');
+  //     return;
+  //   }
+
+  //   const formData = new FormData();
+  //   formData.append('file', uploadedFile);  // Ensure the file is being sent
+
+  //   try {
+  //     const response = await axios.post('http://192.168.0.108:8000/predict', formData, {
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data',
+  //       },
+  //     });
+
+  //     console.log("API response:", response.data);  // Log the API response to check it
+
+  //     const { alexnet_image, xgboost_image, alexnet_prediction, xgboost_prediction } = response.data;
+
+  //     setAlexnetResult(alexnet_image);
+  //     setXgboostResult(xgboost_image);
+  //     setAlexnetTextResult(alexnet_prediction);  // Set AlexNet text result
+  //     setXgboostTextResult(xgboost_prediction);  // Set XGBoost text result
+
+  //     setIsModalOpen(true);  // Open modal to display the images
+    
+  //   } catch (error) {
+  //     console.error("Error analyzing the image:", error);
+  //   } 
+  // };
   const openResults = async () => {
-    console.log("Analyze button clicked!");  // Check if the function is triggered
-    console.log(alexnetResult);
     if (!uploadedFile) {
       console.log("No file selected.");
       setErrorMessage('No file uploaded.');
-      return;
+      return;  // Exit early if no file
     }
 
+    setLoading(true);  // Set loading before starting request
+
     const formData = new FormData();
-    formData.append('file', uploadedFile);  // Ensure the file is being sent
+    formData.append('file', uploadedFile);
 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/predict', formData, {
+      const response = await axios.post('http://192.168.0.108:8000/predict', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
 
-      console.log("API response:", response.data);  // Log the API response to check it
+      console.log("API response:", response.data);
 
-      const { alexnet_image, xgboost_image,alexnet_prediction,xgboost_prediction } = response.data;
+      const { alexnet_image, xgboost_image, alexnet_prediction, xgboost_prediction } = response.data;
 
       setAlexnetResult(alexnet_image);
       setXgboostResult(xgboost_image);
-      setAlexnetTextResult(alexnet_prediction);  // Set AlexNet text result
-      setXgboostTextResult(xgboost_prediction);  // Set XGBoost text result
+      setAlexnetTextResult(alexnet_prediction);
+      setXgboostTextResult(xgboost_prediction);
 
       setIsModalOpen(true);  // Open modal to display the images
+
     } catch (error) {
       console.error("Error analyzing the image:", error);
+      setErrorMessage('Error analyzing the image. Please try again.');  // Display error message to the user
+
+    } finally {
+      setLoading(false);  // End loading state regardless of success or failure
     }
-  };
+};
 
   const closeResults = () => {
     setIsModalOpen(false);
     setAlexnetResult(null);
     setXgboostResult(null);
-    setAlexnetTextResult(null);  
-    setXgboostTextResult(null);  
+    setAlexnetTextResult(null);
+    setXgboostTextResult(null);
   };
 
   return (
@@ -85,16 +130,17 @@ const Analyze = () => {
       <Navbar />
       <div className={styles.textContainer}>
         <h1>Facial Skin Disease Detection</h1>
-        <p>Upload a facial image and get instant, AI-powered detection of common skin conditions. Identify and analyze potential skin diseases quickly and accurately.</p>
+        <p>Upload a facial image and get instant, AI-powered detection of common skin conditions. Identify and analyze potential skin diseases.</p>
       </div>
 
       <div className={styles.uploadCotainer}>
+
         {imageSrc ? (
           <img src={imageSrc} alt="Preview" className={styles.previewImage} />
         ) : (
           <>
             <img src={uploadVector} className={styles.uploadVector} alt="Upload" />
-            <p className={styles.allowedMessage}>Only JPG, JPEG, and PNG image formats are accepted for upload. Other formats will not be allowed.</p>
+            <p className={styles.allowedMessage}>Only JPG, JPEG, and PNG image formats are accepted for upload. Other formats will not be allowed.<br /> To take a photo, use mobile or tablet.</p>
           </>
         )}
 
@@ -141,6 +187,14 @@ const Analyze = () => {
             }
           })()}
         </div>
+        {/*for loading animation, before displaying the result */}
+        {loading && (
+          <div className={styles.loadingContainer} onClick={() => setLoading(false)}>
+            <div className={styles.loading}></div>
+          </div>
+        )}
+
+
 
         {/*for modal of results*/}
         {isModalOpen && (
@@ -156,7 +210,7 @@ const Analyze = () => {
                   </div>
                 )}
                 {xgboostResult && (
-                <div className={styles.xgContainer}>
+                  <div className={styles.xgContainer}>
                     <p>AlexNet-XGBoost Prediction</p>
                     <h2>{xgboostTextResult}</h2>
                     <img src={`data:image/png;base64,${xgboostResult}`} alt="XGBoost Prediction" />
