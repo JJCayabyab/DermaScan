@@ -39,65 +39,63 @@ class AlexNet(nn.Module):
     def __init__(self, num_classes=CATEGORIES):
         super(AlexNet, self).__init__()
         self.model = models.alexnet(weights=None) 
-        self.model.classifier[6] = nn.Linear(4096, num_classes)  
+        self.model.classifier[6] = nn.Linear(4096, len(num_classes))  
 
     def forward(self, x):
         return self.model(x)
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 alexnet_model = AlexNet(num_classes=CATEGORIES).to(device)
-alexnet_model.load_state_dict(torch.load('backend/models/alexnet/alexnet.pth', weights_only=True))
+alexnet_model.load_state_dict(torch.load(r'C:\Users\Josh\Desktop\FINAL_TOOL\DermaScan\backend\models\alexnet\alexnet.pth', map_location=torch.device('cpu')))
 alexnet_model.eval() 
 
 
 
 ########## Feature Extractor AlexNet ##########
 class AlexNetFC6(nn.Module):
-    def __init__(self):
+    def __init__(self, checkpoint_path):
         super(AlexNetFC6, self).__init__()
-        alexnet = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained=False)
-        self.features = alexnet.features
-        self.pooling = nn.AdaptiveAvgPool2d((6, 6))
-        self.fc6 = nn.Sequential(
-            nn.Dropout(0.6),
-            nn.Linear(9216, 4096),
-            nn.ReLU(inplace=True)
+        # Load the base AlexNet model
+        self.model = models.alexnet(weights=None)
+        
+        # Modify the classifier to only include the first three layers
+        self.model.classifier = nn.Sequential(
+            *list(self.model.classifier.children())[:3]
         )
-    
+        
+        # Load the state dictionary
+        state_dict = torch.load(checkpoint_path, map_location=torch.device('cpu'))
+        
+        # Adjust the state dictionary to match the model's keys
+        new_state_dict = {}
+        for k, v in state_dict.items():
+            new_key = k.replace("model.", "") if k.startswith("model.") else k
+            if new_key in self.model.state_dict().keys():
+                new_state_dict[new_key] = v
+        
+        # Load the adjusted state dictionary into the model
+        self.model.load_state_dict(new_state_dict, strict=False)
+        
+        # Freeze the model parameters
+        for param in self.model.parameters():
+            param.requires_grad = False
+        
+        self.model.eval()  # Set the model to evaluation mode
+        
     def forward(self, x):
-        x = self.features(x)  
-        x = torch.flatten(x, 1)  
-        x = self.fc6(x) 
-        return x
+        return self.model(x)
 
-
-alexnet_fc6 = AlexNetFC6()
-state_dict = torch.load('backend/models/alexnet w xgboost/feature_extractor.pth', map_location=torch.device('cpu'))
-
-# Adjust the state dictionary to match the model keys
-new_state_dict = {}
-for k, v in state_dict.items():
-    new_key = k.replace("model.", "") if k.startswith("model.") else k
-    if new_key in alexnet_fc6.state_dict().keys():
-        new_state_dict[new_key] = v
-
-# Load the state dictionary into the model
-alexnet_fc6.load_state_dict(new_state_dict, strict=False)
-
-# Set the model to evaluation mode
+# Usage
+checkpoint_path = r"C:\Users\Josh\Desktop\FINAL_TOOL\DermaScan\backend\models\alexnet w xgboost\feature_extractor.pth"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-alexnet_fc6.to(device)
 
-# Freeze model parameters
-for param in alexnet_fc6.parameters():
-    param.requires_grad = False
+alexnet_fc6 = AlexNetFC6(checkpoint_path).to(device)
 
-alexnet_fc6.eval()
 
 
 ############ XGBoost Classifier ##########
 xgboost_model = xgb.XGBClassifier()
-xgboost_model.load_model('backend/models/alexnet w xgboost/xgboost.json')
+xgboost_model.load_model(r'C:\Users\Josh\Desktop\FINAL_TOOL\DermaScan\backend\models\alexnet w xgboost\xgboost.json')
 
 
 ########## CLAHE ############
