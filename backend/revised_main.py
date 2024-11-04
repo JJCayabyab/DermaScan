@@ -86,7 +86,7 @@ class AlexNetFC6(nn.Module):
         return self.model(x)
 
 # Usage
-checkpoint_path = r"C:\Users\Josh\Desktop\FINAL_TOOL\DermaScan\backend\models\alexnet w xgboost\feature_extractor.pth"
+checkpoint_path = r"C:\Users\Josh\Desktop\FINAL_TOOL\DermaScan\backend\models\alexnet w xgboost\feature_extractor.pth" 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 alexnet_fc6 = AlexNetFC6(checkpoint_path).to(device)
@@ -95,7 +95,7 @@ alexnet_fc6 = AlexNetFC6(checkpoint_path).to(device)
 
 ############ XGBoost Classifier ##########
 xgboost_model = xgb.XGBClassifier()
-xgboost_model.load_model(r'C:\Users\Josh\Desktop\FINAL_TOOL\DermaScan\backend\models\alexnet w xgboost\xgboost.json')
+xgboost_model.load_model(r'C:\Users\Josh\Desktop\FINAL_TOOL\DermaScan\backend\models\alexnet w xgboost\xgboost.json') 
 
 
 ########## CLAHE ############
@@ -184,8 +184,8 @@ async def predict(file: UploadFile = File(...)):
 
         logging.info("Image successfully loaded and converted")
         
-        alexnet_image = image.copy()  # Create a copy for AlexNet prediction
-        xgboost_image = image.copy()  # Create a copy for XGBoost prediction
+        alexnet_image = image.copy()  
+        xgboost_image = image.copy()  
 
         # Get predictions
         alexnet_prediction = predict_with_alexnet(pil_image)
