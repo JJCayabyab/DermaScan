@@ -93,7 +93,7 @@ const Analyze = () => {
 
     try {
       const response = await axios.post(
-        "http://192.168.1.10:5173/predict",
+        "http://192.168.1.10:8000/predict",
         formData,
         {
           headers: {
