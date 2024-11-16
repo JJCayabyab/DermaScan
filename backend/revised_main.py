@@ -1,13 +1,14 @@
+# File 2: revised_main.py
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 import torchvision.transforms as transforms
 import torchvision.models as models
 import xgboost as xgb
-import joblib
 import cv2
 import base64
 from io import BytesIO
@@ -20,7 +21,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://192.168.1.15:5173", "http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -30,26 +31,32 @@ app.add_middleware(
 INPUT_SIZE = (256, 256)
 MEAN = (0.6181, 0.4643, 0.4194)
 STD = (0.1927, 0.1677, 0.1617)
-CATEGORIES = ['Acne', 'Eczema', 'Normal', 'Perioral Dermatitis', 'Psoriasis', 'Rocasea', 'Seborrheic Dermatitis', 'Tinea Faciei']
-
-
+CATEGORIES = ['Acne', 'Eczema', 'Normal', 'Perioral Dermatitis', 'Psoriasis', 'Rosacea', 'Seborrheic Dermatitis', 'Tinea Faciei']
+FEATURE_MAP = {
+    'Acne': "redness, inflammation",
+    'Eczema': "redness, small bumps, thick scratch marks",
+    'Normal': "healthy skin",
+    'Perioral Dermatitis': "scaly, flaky skin, red base with sharp border",
+    'Psoriasis': "redness, scaling, cracking",
+    'Rosacea': "redness, pustules, flushing, papules",
+    'Seborrheic Dermatitis': "scaling, redness",
+    'Tinea Faciei': "circular red scaly areas, less red in middle"
+}
 
 ########## Standard AlexNet ###########
 class AlexNet(nn.Module):
     def __init__(self, num_classes=CATEGORIES):
         super(AlexNet, self).__init__()
         self.model = models.alexnet(weights=None) 
-        self.model.classifier[6] = nn.Linear(4096, len(num_classes))  
+        self.model.classifier[6] = nn.Linear(4096, len(num_classes))
 
     def forward(self, x):
         return self.model(x)
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 alexnet_model = AlexNet(num_classes=CATEGORIES).to(device)
-alexnet_model.load_state_dict(torch.load(r'C:\Users\Josh\Desktop\FINAL_TOOL\DermaScan\backend\models\alexnet\alexnet.pth', map_location=torch.device('cpu')))
-alexnet_model.eval() 
-
-
+alexnet_model.load_state_dict(torch.load(r'E:\Github\DermaScan\backend\models\alexnet\alexnet.pth', map_location=torch.device('cpu')))
+alexnet_model.eval()
 
 ########## Feature Extractor AlexNet ##########
 class AlexNetFC6(nn.Module):
@@ -57,12 +64,11 @@ class AlexNetFC6(nn.Module):
         super(AlexNetFC6, self).__init__()
         # Load the base AlexNet model
         self.model = models.alexnet(weights=None)
-        
+
         # Modify the classifier to only include the first three layers
         self.model.classifier = nn.Sequential(
             *list(self.model.classifier.children())[:3]
         )
-        
         # Load the state dictionary
         state_dict = torch.load(checkpoint_path, map_location=torch.device('cpu'))
         
@@ -86,17 +92,12 @@ class AlexNetFC6(nn.Module):
         return self.model(x)
 
 # Usage
-checkpoint_path = r"C:\Users\Josh\Desktop\FINAL_TOOL\DermaScan\backend\models\alexnet w xgboost\feature_extractor.pth" 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
+checkpoint_path = r"E:\Github\DermaScan\backend\models\alexnet_xgboost\feature_extractor.pth"
 alexnet_fc6 = AlexNetFC6(checkpoint_path).to(device)
-
-
 
 ############ XGBoost Classifier ##########
 xgboost_model = xgb.XGBClassifier()
-xgboost_model.load_model(r'C:\Users\Josh\Desktop\FINAL_TOOL\DermaScan\backend\models\alexnet w xgboost\xgboost.json') 
-
+xgboost_model.load_model(r'E:\Github\DermaScan\backend\models\alexnet_xgboost\xgboost.json')
 
 ########## CLAHE ############
 class CLAHETransform:
@@ -118,7 +119,6 @@ class CLAHETransform:
 
         img_clahe = Image.fromarray(img_np)
         return img_clahe
-
 
 # Preprocessing function for the input image
 def preprocess_image(image: Image.Image):
@@ -147,18 +147,16 @@ def add_prediction_text(image, text, position):
     cv2.rectangle(image, (text_x, text_y - text_height - 5), (text_x + text_width, text_y + 5), (0, 0, 0), -1)
     cv2.putText(image, text, (text_x, text_y), font, font_scale, (255, 255, 255), 2, cv2.LINE_AA)
 
-
-
-
 ########## Function to Predict using AlexNet ##########
 def predict_with_alexnet(image: Image.Image):
     preprocessed_image = preprocess_image(image)
     with torch.no_grad():
         predictions = alexnet_model(preprocessed_image)
-    predicted_class = CATEGORIES[torch.argmax(predictions, dim=1).item()]
-    return predicted_class
-
-
+    probabilities = F.softmax(predictions, dim=1).cpu().numpy()
+    predicted_class = CATEGORIES[np.argmax(probabilities)]
+    confidence = float(probabilities[0][np.argmax(probabilities)])
+    features = FEATURE_MAP[predicted_class]
+    return predicted_class, confidence, features
 
 ########## Function to Predict using AlexNet with XGBoost ##########
 def predict_with_xgboost(image: Image.Image):
@@ -170,8 +168,11 @@ def predict_with_xgboost(image: Image.Image):
         features = alexnet_fc6(image_tensor)
 
     # Step 3: Predict using the XGBoost model
-    prediction = xgboost_model.predict(features)
-    return CATEGORIES[int(prediction[0])]
+    probabilities = xgboost_model.predict_proba(features)
+    predicted_class_index = np.argmax(probabilities, axis=1)[0]
+    confidence = float(probabilities[0][predicted_class_index])
+    features_description = FEATURE_MAP[CATEGORIES[predicted_class_index]]
+    return CATEGORIES[predicted_class_index], confidence, features_description
 
 ########## PREDICT ##########
 @app.post("/predict")
@@ -184,15 +185,15 @@ async def predict(file: UploadFile = File(...)):
 
         logging.info("Image successfully loaded and converted")
         
-        alexnet_image = image.copy()  
-        xgboost_image = image.copy()  
+        alexnet_image = image.copy()  # Create a copy for AlexNet prediction
+        xgboost_image = image.copy()  # Create a copy for XGBoost prediction
 
         # Get predictions
-        alexnet_prediction = predict_with_alexnet(pil_image)
-        logging.info(f"AlexNet Prediction: {alexnet_prediction}")
+        alexnet_prediction, alexnet_confidence, alexnet_features = predict_with_alexnet(pil_image)
+        logging.info(f"AlexNet Prediction: {alexnet_prediction}, Confidence: {alexnet_confidence:.2f}")
         
-        xgboost_prediction = predict_with_xgboost(pil_image)
-        logging.info(f"XGBoost Prediction: {xgboost_prediction}")
+        xgboost_prediction, xgboost_confidence, xgboost_features = predict_with_xgboost(pil_image)
+        logging.info(f"XGBoost Prediction: {xgboost_prediction}, Confidence: {xgboost_confidence:.2f}")
 
         # Convert images to base64
         alexnet_image_base64 = np_to_base64(alexnet_image)
@@ -202,7 +203,11 @@ async def predict(file: UploadFile = File(...)):
             "alexnet_image": alexnet_image_base64,
             "xgboost_image": xgboost_image_base64,
             "alexnet_prediction": alexnet_prediction,
-            "xgboost_prediction": xgboost_prediction
+            "alexnet_confidence": alexnet_confidence,
+            "alexnet_features": alexnet_features,
+            "xgboost_prediction": xgboost_prediction,
+            "xgboost_confidence": xgboost_confidence,
+            "xgboost_features": xgboost_features
         })
     except Exception as e:
         logging.error(f"Error during prediction: {e}")

@@ -1,3 +1,4 @@
+// File 1: Analyze.jsx
 import { useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import styles from "./Analyze.module.scss";
@@ -12,6 +13,10 @@ const Analyze = () => {
   const [xgboostResult, setXgboostResult] = useState(null); // Store XGBoost prediction image
   const [alexnetTextResult, setAlexnetTextResult] = useState(null); // Store AlexNet text result
   const [xgboostTextResult, setXgboostTextResult] = useState(null); // Store XGBoost text result
+  const [alexnetConfidence, setAlexnetConfidence] = useState(null); // Store AlexNet confidence
+  const [xgboostConfidence, setXgboostConfidence] = useState(null); // Store XGBoost confidence
+  const [alexnetFeatures, setAlexnetFeatures] = useState(null); // Store AlexNet features
+  const [xgboostFeatures, setXgboostFeatures] = useState(null); // Store XGBoost features
 
   const [uploadedFile, setUploadedFile] = useState(null); // State to store the uploaded file
 
@@ -42,43 +47,6 @@ const Analyze = () => {
     setErrorMessage(""); // Clear the error when clearing the image
   };
 
-  // const openResults = async () => {
-  //   setLoading(true)
-  //   console.log("Analyze button clicked!");  // Check if the function is triggered
-  //   console.log(alexnetResult);
-
-  //   console.log('loading value' + loading);
-  //   if (!uploadedFile) {
-  //     console.log("No file selected.");
-  //     setErrorMessage('No file uploaded.');
-  //     return;
-  //   }
-
-  //   const formData = new FormData();
-  //   formData.append('file', uploadedFile);  // Ensure the file is being sent
-
-  //   try {
-  //     const response = await axios.post('http://192.168.0.108:8000/predict', formData, {
-  //       headers: {
-  //         'Content-Type': 'multipart/form-data',
-  //       },
-  //     });
-
-  //     console.log("API response:", response.data);  // Log the API response to check it
-
-  //     const { alexnet_image, xgboost_image, alexnet_prediction, xgboost_prediction } = response.data;
-
-  //     setAlexnetResult(alexnet_image);
-  //     setXgboostResult(xgboost_image);
-  //     setAlexnetTextResult(alexnet_prediction);  // Set AlexNet text result
-  //     setXgboostTextResult(xgboost_prediction);  // Set XGBoost text result
-
-  //     setIsModalOpen(true);  // Open modal to display the images
-
-  //   } catch (error) {
-  //     console.error("Error analyzing the image:", error);
-  //   }
-  // };
   const openResults = async () => {
     if (!uploadedFile) {
       console.log("No file selected.");
@@ -91,16 +59,16 @@ const Analyze = () => {
     const formData = new FormData();
     formData.append("file", uploadedFile);
 
+    const apiUrl = window.location.hostname === 'localhost'
+      ? "http://localhost:8000/predict"
+      : "http://192.168.1.15:8000/predict";
+
     try {
-      const response = await axios.post(
-        "http://192.168.1.10:8000/predict",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.post(apiUrl, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       console.log("API response:", response.data);
 
@@ -109,12 +77,20 @@ const Analyze = () => {
         xgboost_image,
         alexnet_prediction,
         xgboost_prediction,
+        alexnet_confidence,
+        xgboost_confidence,
+        alexnet_features,
+        xgboost_features,
       } = response.data;
 
       setAlexnetResult(alexnet_image);
       setXgboostResult(xgboost_image);
       setAlexnetTextResult(alexnet_prediction);
       setXgboostTextResult(xgboost_prediction);
+      setAlexnetConfidence(alexnet_confidence);
+      setXgboostConfidence(xgboost_confidence);
+      setAlexnetFeatures(alexnet_features);
+      setXgboostFeatures(xgboost_features);
 
       setIsModalOpen(true); // Open modal to display the images
     } catch (error) {
@@ -131,6 +107,10 @@ const Analyze = () => {
     setXgboostResult(null);
     setAlexnetTextResult(null);
     setXgboostTextResult(null);
+    setAlexnetConfidence(null);
+    setXgboostConfidence(null);
+    setAlexnetFeatures(null);
+    setXgboostFeatures(null);
   };
 
   return (
@@ -216,7 +196,7 @@ const Analyze = () => {
         {loading && (
           <div
             className={styles.loadingContainer}
-            onClick={() => setLoading(false)}
+            //onClick={() => setLoading(false)}
           >
             <div className={styles.loading}></div>
           </div>
@@ -242,6 +222,8 @@ const Analyze = () => {
                   <div className={styles.alexContainer}>
                     <p>AlexNet Prediction</p>
                     <h2>{alexnetTextResult}</h2>
+                    <p>Confidence: {(alexnetConfidence * 100).toFixed(2)}%</p>
+                    <p>Features: {alexnetFeatures}</p>
                     <img
                       src={`data:image/png;base64,${alexnetResult}`}
                       alt="AlexNet Prediction"
@@ -252,6 +234,8 @@ const Analyze = () => {
                   <div className={styles.xgContainer}>
                     <p>AlexNet-XGBoost Prediction</p>
                     <h2>{xgboostTextResult}</h2>
+                    <p>Confidence: {(xgboostConfidence * 100).toFixed(2)}%</p>
+                    <p>Features: {xgboostFeatures}</p>
                     <img
                       src={`data:image/png;base64,${xgboostResult}`}
                       alt="XGBoost Prediction"
