@@ -28,14 +28,12 @@
         }
     }
 
-
     .menuContainer {
         margin-right: 100px;
         font-size: 1rem;
         font-weight: 500;
     }
 }
-
 
 .navLinks {
     font-family: $body-font;
@@ -72,10 +70,7 @@
     background-color: $primary-color;
     backdrop-filter: blur(10px);
     transition: transform 0.5s ease-in-out;
-    /* Smooth animation */
     transform: translateX(0);
-    /* Initial position */
-
 
     .navLinks {
         display: flex;
@@ -119,8 +114,6 @@
         font-size: 1rem;
     }
 
- 
-
     .options {
         li {
             margin-bottom: 20px;
@@ -143,7 +136,6 @@
 
     }
 
-  
     .options {
         li {
             margin-bottom: 20px;

@@ -1,4 +1,25 @@
-// File 1: Analyze.jsx
+/**
+ * File: Analyze.jsx
+ * Programmer: Jeremy Jhay B. Cayabyab
+ *             Malcolm James Murillo
+ * 
+ * Where the Program Fits in the General System Design:
+ * This file is a core component of the frontend application, enabling users to upload or capture 
+ * facial images for AI-powered skin disease analysis. It connects with the backend API to 
+ * process the image and displays results using AlexNet and AlexNet-XGBoost models.
+ * 
+ * Date Written: September 29, 2024
+ * Date Revised: November 9, 2024
+ *
+ * Purpose:
+ * - To allow users to upload or capture images in JPG or PNG format for analysis.
+ * - To communicate with the backend API for AI predictions and retrieve results.
+ * - To display analysis results, including predictions, confidence scores, and extracted features, in a user-friendly modal.
+ * - To provide a seamless and interactive user experience with features like image preview, loading animations, 
+ *   error handling, and result visualization.
+ *
+ * **/
+
 import { useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import styles from "./Analyze.module.scss";
@@ -22,6 +43,9 @@ const Analyze = () => {
 
   const [loading, setLoading] = useState(false); // Manage loading state
 
+  /** Handles image upload by validating the file type, updating the preview image, 
+    * storing the uploaded file in state, and displaying an error message if the file type is unsupported.
+  **/
   const handleUploadChange = (event) => {
     const file = event.target.files[0];
     const allowedTypes = ["image/jpeg", "image/png"];
@@ -41,24 +65,27 @@ const Analyze = () => {
     }
   };
 
-  // Handle clear if the user uploads an image
+  // Clears the uploaded image
   const handleClear = () => {
     setImageSrc(null);
     setErrorMessage(""); // Clear the error when clearing the image
   };
 
+  //Display the results modal if the user has clicked analyze 
   const openResults = async () => {
+    // Check if a file is uploaded; if not, show an error message and exit
     if (!uploadedFile) {
       console.log("No file selected.");
       setErrorMessage("No file uploaded.");
-      return; // Exit early if no file
+      return;
     }
 
-    setLoading(true); // Set loading before starting request
+    setLoading(true); // Display a loading animation after clicking "Analyze" before starting request
 
     const formData = new FormData();
-    formData.append("file", uploadedFile);
+    formData.append("file", uploadedFile); // Prepare the file for API submission
 
+    // Choose the correct API URL based on the environment
     const apiUrl = window.location.hostname === 'localhost'
       ? "http://localhost:8000/predict"
       : "http://192.168.1.12:8000/predict";
@@ -66,12 +93,11 @@ const Analyze = () => {
     try {
       const response = await axios.post(apiUrl, formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "multipart/form-data", // Set correct content type
         },
       });
 
-      console.log("API response:", response.data);
-
+      //// Destructure and extract relevant data from the API response
       const {
         alexnet_image,
         xgboost_image,
@@ -83,6 +109,7 @@ const Analyze = () => {
         xgboost_features,
       } = response.data;
 
+      // Update the state with the received results
       setAlexnetResult(alexnet_image);
       setXgboostResult(xgboost_image);
       setAlexnetTextResult(alexnet_prediction);
@@ -91,16 +118,16 @@ const Analyze = () => {
       setXgboostConfidence(xgboost_confidence);
       setAlexnetFeatures(alexnet_features);
       setXgboostFeatures(xgboost_features);
-
-      setIsModalOpen(true); // Open modal to display the images
+      setIsModalOpen(true);
     } catch (error) {
       console.error("Error analyzing the image:", error);
-      setErrorMessage("Error analyzing the image. Please try again."); // Display error message to the user
+      setErrorMessage("Error analyzing the image. Please try again.");// Display error message if image has not been analyzed
     } finally {
-      setLoading(false); // End loading state regardless of success or failure
+      setLoading(false); // End loading state after the request
     }
   };
 
+  //Close the results modal
   const closeResults = () => {
     setIsModalOpen(false);
     setAlexnetResult(null);
@@ -116,6 +143,8 @@ const Analyze = () => {
   return (
     <div>
       <Navbar />
+
+      {/*Displays the header and description for the page */}
       <div className={styles.textContainer}>
         <h1>Facial Skin Disease Detection</h1>
         <p>
@@ -124,9 +153,12 @@ const Analyze = () => {
         </p>
       </div>
 
+      {/*Handles image upload and preview logic */}
       <div className={styles.uploadCotainer}>
+
+        {/*Shows the uploaded image of the user or the default upload vector */}
         {imageSrc ? (
-          <img src={imageSrc} alt="Preview" className={styles.previewImage} />
+          <img src={imageSrc} alt="Preview Image" className={styles.previewImage} />
         ) : (
           <>
             <img
@@ -145,8 +177,8 @@ const Analyze = () => {
         {/* Display error message if there is one */}
         {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
 
+        {/*Contains buttons for upload, camera, analyze, and clear */}
         <div className={styles.optionsContainer}>
-          {/* condition to return if the user has uploaded an image or not */}
           {(() => {
             if (imageSrc) {
               return (
@@ -192,17 +224,15 @@ const Analyze = () => {
             }
           })()}
         </div>
-        {/*for loading animation, before displaying the result */}
+
+        {/*Displays loading animation, before displaying the result */}
         {loading && (
-          <div
-            className={styles.loadingContainer}
-            //onClick={() => setLoading(false)}
-          >
+          <div className={styles.loadingContainer}>
             <div className={styles.loading}></div>
           </div>
         )}
 
-        {/*for modal of results*/}
+        {/*Displays the results after image analysis */}
         {isModalOpen && (
           <div className={styles.resultsWrapper}>
             <div className={styles.results}>
