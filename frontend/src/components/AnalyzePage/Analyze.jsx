@@ -61,7 +61,7 @@ const Analyze = () => {
 
     const apiUrl = window.location.hostname === 'localhost'
       ? "http://localhost:8000/predict"
-      : "http://192.168.1.15:8000/predict";
+      : "http://192.168.1.12:8000/predict";
 
     try {
       const response = await axios.post(apiUrl, formData, {

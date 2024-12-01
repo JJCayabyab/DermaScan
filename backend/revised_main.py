@@ -21,16 +21,16 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://192.168.1.15:5173", "http://localhost:5173"],
+    allow_origins=["http://192.168.1.12:5173", "http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 ########## Define constants ##########
-INPUT_SIZE = (256, 256)
-MEAN = (0.6181, 0.4643, 0.4194)
-STD = (0.1927, 0.1677, 0.1617)
+INPUT_SIZE = (227,227)
+MEAN = (0.5960, 0.4489, 0.4046)
+STD = (0.2102, 0.1782, 0.1719)
 CATEGORIES = ['Acne', 'Eczema', 'Normal', 'Perioral Dermatitis', 'Psoriasis', 'Rosacea', 'Seborrheic Dermatitis', 'Tinea Faciei']
 FEATURE_MAP = {
     'Acne': "redness, inflammation",
@@ -55,7 +55,7 @@ class AlexNet(nn.Module):
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 alexnet_model = AlexNet(num_classes=CATEGORIES).to(device)
-alexnet_model.load_state_dict(torch.load(r'E:\Github\DermaScan\backend\models\alexnet\alexnet.pth', map_location=torch.device('cpu')))
+alexnet_model.load_state_dict(torch.load(r'C:\Users\Josh\Desktop\FINAL_TOOL\DermaScan\backend\models\alexnet.pth', map_location=torch.device('cpu')))
 alexnet_model.eval()
 
 ########## Feature Extractor AlexNet ##########
@@ -92,12 +92,12 @@ class AlexNetFC6(nn.Module):
         return self.model(x)
 
 # Usage
-checkpoint_path = r"E:\Github\DermaScan\backend\models\alexnet_xgboost\feature_extractor.pth"
+checkpoint_path = r"C:\Users\Josh\Desktop\FINAL_TOOL\DermaScan\backend\models\alexnet.pth"
 alexnet_fc6 = AlexNetFC6(checkpoint_path).to(device)
 
 ############ XGBoost Classifier ##########
 xgboost_model = xgb.XGBClassifier()
-xgboost_model.load_model(r'E:\Github\DermaScan\backend\models\alexnet_xgboost\xgboost.json')
+xgboost_model.load_model(r'C:\Users\Josh\Desktop\FINAL_TOOL\DermaScan\backend\models\xgboost.json')
 
 ########## CLAHE ############
 class CLAHETransform:
@@ -123,13 +123,13 @@ class CLAHETransform:
 # Preprocessing function for the input image
 def preprocess_image(image: Image.Image):
     
-    transform = transforms.Compose([
-        CLAHETransform(clip_limit=2.0, tile_grid_size=(8, 8)),
+    transform  = transforms.Compose ([
         transforms.Resize(INPUT_SIZE),
-        transforms.CenterCrop((227,227)),
+        CLAHETransform(clip_limit=2.0, tile_grid_size=(8, 8)),
         transforms.ToTensor(),
         transforms.Normalize(mean=MEAN, std=STD)
     ])
+    
     return transform(image).unsqueeze(0) 
 
 def np_to_base64(image_np):
