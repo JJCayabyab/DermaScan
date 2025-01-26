@@ -12,7 +12,7 @@ export const contacts = [
   },
   {
     name: "Jeremy Jhay Cayabyab",
-    email: "cayabyabjeremyjhay25@gmail.com",
+    email: "cayabyabjeremy25@gmail.com",
     phone: "0908 116 1458",
     image: jeremyImg
   },

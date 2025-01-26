@@ -1,7 +1,7 @@
 //button
-@mixin button{
+@mixin button {
     font-family: $body-font;
-    background-color: $primary-color;
+    background-color: #FFAA5B;
     margin-top: 30px;
     padding: 10px 15px;
     font-size: 1.5rem;
@@ -11,8 +11,8 @@
     z-index: 10;
     transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
 
-    &:hover{
-        background-color: rgb(14, 197, 197);
+    &:hover {
+        background-color: #ff9430;
     }
 }
 

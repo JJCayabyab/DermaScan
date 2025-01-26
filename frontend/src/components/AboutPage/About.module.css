@@ -32,10 +32,15 @@
   padding: 20px 100px;
   color: white;
   z-index: 20;
+  align-items: center;
 }
 .missionContainer .leftSide {
   text-align: justify;
   width: 45%;
+}
+.missionContainer .leftSide p {
+  margin-top: 10px;
+  line-height: 1.3;
 }
 .missionContainer .rightSide {
   display: flex;
@@ -44,7 +49,8 @@
   width: 45%;
 }
 .missionContainer .rightSide img {
-  width: 100%;
+  width: 80%;
+  height: auto;
 }
 
 .techWrapper {
@@ -86,6 +92,8 @@
 }
 .techWrapper .techContainer .textContainer p {
   text-align: justify;
+  margin-top: 10px;
+  line-height: 1.3;
 }
 .techWrapper .techContainer:nth-of-type(2) {
   flex-direction: row-reverse;

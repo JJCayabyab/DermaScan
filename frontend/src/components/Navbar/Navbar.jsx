@@ -19,6 +19,7 @@
 **/
 
 import styles from './Navbar.module.scss'
+import logo from '../../assets/images/logo1.png'
 
 const Navbar = () => {
 
@@ -47,6 +48,7 @@ const Navbar = () => {
       <div className={styles.navContainer}>
         <div className={styles.logoContainer}>
           <a href="/">
+            <img className={styles.logo}src={logo}/>
             <h1 className={styles.siteName}>DERMASCAN</h1>
           </a>
         </div>

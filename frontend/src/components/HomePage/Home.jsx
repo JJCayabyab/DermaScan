@@ -37,7 +37,7 @@ const Home = () => {
 
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       {/* Hero section showcasing the app's purpose and a call-to-action button */}
       <div className={styles.heroContainer}>
         <div className={styles.heroLeftContainer}>
@@ -60,17 +60,20 @@ const Home = () => {
         <h2> Welcome to DermaScan</h2>
         <hr className={styles.line} />
         <p>
-          At DermaScan, we leverage advanced AI technology to provide fast, accurate assessments of your skin.  With DermaScan, 
+          At DermaScan, we leverage advanced AI technology to provide fast, accurate assessments of your skin.  With DermaScan,
           taking charge of your skin’s well-being has never been easier or more reliable.
         </p>
       </div>
 
       {/* Section to display the detectable skin conditions */}
-      <h2 className={styles.detectable}> Detectable Conditions</h2>
-      <div className={styles.diseaseContainer}>
-        {displayDisease}
+ 
+        <h2 className={styles.detectable}> Detectable Conditions</h2>
+        <div className={styles.diseaseContainer}>
+          {displayDisease}
+        </div>
       </div>
-    </div>
+
+ 
   )
 }
 

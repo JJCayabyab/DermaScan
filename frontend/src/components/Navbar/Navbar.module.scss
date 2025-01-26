@@ -12,12 +12,21 @@
     top: 0;
     z-index: 100;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    padding: 10px 0px;
 
     .logoContainer {
         margin-left: 100px;
 
         a {
             text-decoration: none;
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .logo {
+            height: 60px;
+            width: 60px;
         }
 
         .siteName {
@@ -50,7 +59,7 @@
 
             text-decoration: none;
             color: white;
-            padding: 4px 6px;
+            padding: 7px 12px;
         }
     }
 }
@@ -86,7 +95,7 @@
 }
 
 //to show navigation menu 
-@media screen and (max-width: 895px) {
+@media screen and (max-width: 1017px) {
     .hideOnSmall {
         display: none;
     }
@@ -100,8 +109,13 @@
     .logoContainer {
         margin-left: 50px !important;
 
+        .logo {
+            height: 55px !important;
+            width: 55px !important;
+        }
+
         .siteName {
-            font-size: 2.4rem !important;
+            font-size: 2.3rem  !important;
         }
     }
 
@@ -110,10 +124,7 @@
 
     }
 
-    .siteName {
-        font-size: 1rem;
-    }
-
+  
     .options {
         li {
             margin-bottom: 20px;
@@ -122,9 +133,14 @@
 }
 
 @include mobile {
-
+ 
     .logoContainer {
-        margin-left: 20px !important;
+        margin-left: 25px !important;
+
+        .logo {
+            height: 48px !important;
+            width: 48px !important;
+        }
 
         .siteName {
             font-size: 1.9rem !important;
@@ -132,7 +148,7 @@
     }
 
     .menuContainer {
-        margin-right: 20px !important;
+        margin-right: 25px !important;
 
     }
 

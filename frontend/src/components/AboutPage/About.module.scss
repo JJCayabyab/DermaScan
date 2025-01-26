@@ -23,7 +23,7 @@
     right: 0;
     width: 200px;
     height: 200px;
-    margin-right: -\40px;
+
 }
 
 
@@ -31,16 +31,22 @@
     position: relative;
     margin-top: 100px;
     display: flex;
-    gap: 60px;
+    gap: 50px;
     justify-content: center;
     background-color: $primary-color;
-    padding: 20px 100px;
+    padding: 20px 70px;
     color: white;
     z-index: 20;
+    align-items: center;
 
     .leftSide {
         text-align: justify;
         width: 45%;
+
+        p {
+            margin-top: 10px;
+            line-height: 1.3;
+        }
     }
 
     .rightSide {
@@ -50,7 +56,8 @@
         width: 45%;
 
         img {
-            width: 100%;
+            width: 420px;
+            height: auto;
         }
     }
 }
@@ -97,7 +104,10 @@
             }
 
             p {
-                text-align: justify
+                text-align: justify;
+                margin-top: 10px;
+                line-height: 1.3;
+
             }
         }
 
@@ -111,7 +121,7 @@
 
 .processWrapper {
     padding: 10px 50px;
-    background-color: #ebebeb;
+    background-color: #d8d8d8;
     gap: 30px;
     z-index: 20;
     position: relative;
@@ -159,7 +169,17 @@
     }
 }
 
+@media screen and (max-width:1130px) {
+    .missionContainer {
+        .rightSide {
 
+            img {
+                width: 365px;
+                height: auto;
+            }
+        }
+    }
+}
 
 @include tablet {
 
@@ -241,7 +261,7 @@
     .missionContainer {
         display: flex;
         flex-direction: column;
-        padding: 20px 65px;
+        padding: 20px 45px;
         gap: 10px;
 
         .leftSide {
@@ -266,7 +286,7 @@
             width: 100%;
 
             img {
-                width: 70%;
+                max-width: 400px;
             }
         }
     }
@@ -350,7 +370,6 @@
 }
 
 @include mobile {
-
 
     .circle1 {
         height: 160px;

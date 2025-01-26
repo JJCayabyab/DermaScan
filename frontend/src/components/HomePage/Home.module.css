@@ -1,14 +1,16 @@
 .heroContainer {
   display: flex;
-  margin-top: 100px;
+  margin: 100px auto;
+  margin-bottom: 0px;
   gap: 30px;
   position: relative;
-  padding: 0px 100px;
+  justify-content: center;
+  max-width: 1200px;
+  width: 100%;
 }
 .heroContainer .heroLeftContainer {
   width: 60%;
   position: relative;
-  /* Add this to create a stacking context */
 }
 .heroContainer .heroLeftContainer .circle1 {
   width: 400px;
@@ -109,6 +111,7 @@
   color: white;
   font-family: "Inter", sans-serif;
   font-size: 1rem;
+  line-height: 1.35;
 }
 
 .detectable {
@@ -196,18 +199,23 @@
     height: 120px;
   }
 }
+@media screen and (min-width: 1026px) and (max-width: 1236px) {
+  .heroLeftContainer {
+    padding: 0px 55px;
+  }
+}
 @media screen and (min-width: 769px) and (max-width: 1024px) {
   .heroContainer .heroLeftContainer {
-    width: 60%;
+    width: 50%;
   }
   .heroContainer .heroLeftContainer h1 {
     font-size: 3.5rem;
   }
   .heroContainer .heroRightContainer {
-    width: 35%;
+    width: 30%;
   }
   .heroContainer .heroRightContainer .heroImage {
-    width: 400px;
+    width: 380px;
   }
   .infoContainer p {
     width: 60%;
@@ -223,7 +231,6 @@
   .heroContainer {
     flex-direction: column;
     align-items: center;
-    padding: 0px 60px;
   }
   .heroContainer .heroLeftContainer {
     display: flex;
@@ -235,7 +242,6 @@
   .heroContainer .heroLeftContainer .circle1 {
     width: 350px;
     height: 350px;
-    margin-left: -210px;
   }
   .heroContainer .heroLeftContainer .heroButton {
     margin-top: 20px;
@@ -244,9 +250,14 @@
   }
   .heroContainer .heroLeftContainer h1 {
     font-size: 3rem;
+    max-width: 600px;
+    padding: 0px 20px;
   }
   .heroContainer .heroLeftContainer h4 {
     font-size: 1.2rem;
+    max-width: 540px;
+    margin-left: 10px;
+    margin-right: 10px;
   }
   .heroContainer .heroRightContainer {
     width: 35%;
@@ -269,7 +280,6 @@
 }
 @media screen and (max-width: 480px) {
   .heroContainer {
-    padding: 0px 30px;
     flex-direction: column;
     align-items: center;
   }
@@ -291,15 +301,19 @@
   }
   .heroContainer .heroLeftContainer h1 {
     font-size: 2.1rem;
+    max-width: 400px;
+    margin: 0px 10px;
   }
   .heroContainer .heroLeftContainer h4 {
     font-size: 0.9rem;
+    max-width: 500px;
+    margin: 0px 10px;
   }
   .heroContainer .heroRightContainer {
     width: 35%;
   }
   .heroContainer .heroRightContainer .heroImage {
-    width: 300px;
+    width: 280px;
   }
   .detectable {
     font-size: 2rem;

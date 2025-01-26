@@ -32,7 +32,7 @@ export const skinConditionData = [
         img2: acne2,
         definition: `Acne is a common chronic illness that affects the hair follicles and sebaceous glands, causing follicular growth, obstruction, and irritation. There are various variations.\n
         Acne affects men and women of all races and ethnicities. It is widespread in teenagers and young adults, affecting 85% of those aged 16 to 18. However, it can occur in children and adults of all ages.`,
-        causes: `Acne is the result of a mix of causes. The specific mechanics are not completely understood..
+        causes: `Acne is the result of a mix of causes. The specific mechanics are not completely understood.\n
         \t•Familia tendency 
         \t•Endogenous and exogenous androgenic hormones
         \t•Acne bacteria
@@ -51,7 +51,7 @@ export const skinConditionData = [
         \t•In severe acne, nodules and pseudocysts
         \t•Post-inflammatory erythematous or pigmented macules and scars 
         \t•Adverse social and psychological effects.\n
-        Severity is classified as mild, moderate, or severe.
+        Severity is classified as mild, moderate, or severe:
         \t• Mild acne: total lesion count <30
         \t•Moderate acne: total lesion count 30–125
         \t•Severe acne: total lesion count >125
@@ -62,13 +62,13 @@ export const skinConditionData = [
         \t•Newer topical agents such as clascoterone
         \t•Antiseptic or keratolytic washes containing salicylic acid
         \t•Light/laser therapy\n
-        Moderate acne
+        Moderate acne:
         \t•As for mild acne plus a tetracycline such as doxycycline 50–200 mg daily for 6 months or so
         \t•Erythromycin or trimethoprim if doxycycline intolerant
         \t•Antiandrogen therapy with long-term cyproterone acetate + ethinylestradiol or spironolactone may be considered in women not responding to low-dose combined oral contraceptive, particularly for women with polycystic ovaries
         \t•Isotretinoin is often used if acne is persistent or treatment-resistant
         \t•Intralesional steroid injections can be useful for acute larger acne lesions\n
-        Severe Acne
+        Severe Acne:
         \t•Referral to a dermatologist
         \t•If fever, arthralgia, bone pain, ulcerated or extensive skin lesions, blood count should be arranged and referral is urgent
         \t•Oral antibiotics are often used in higher doses than normal
@@ -95,28 +95,28 @@ export const skinConditionData = [
         \t•Inflammatory papules and pustules (papulopustular)
     `,
         causes: `The pathogenesis of rosacea is thought to be multifactorial and includes:
-        \t•Genetic susceptibility
-        \t\t-Association with single nucleotide polymorphisms related to the class II major histocompatibility complex.
-        \t•Altered microbiome of the skin and gut
+        \t•Genetic susceptibility:
+        \t\t-Association with single nucleotide polymorphisms related to the class II major histocompatibility complex.\n
+        \t•Altered microbiome of the skin and gut:
         \t\t-Bacterial overgrowth of the small intestine, Helicobacter pylori infection, and increased density of Demodex folliculorum and Staphylococcus epidermidis on the skin may play a role in skin inflammation.
-        \t\t-Dysregulation of the immune response may lead to excessive inflammation, vasodilation , lymphatic dilatation, and angiogenesis.
-        \t•Neurocutaneous mechanisms
-        \t\t-Triggers include ultraviolet (UV) radiation, temperature change, exercise, spicy foods, alcohol, psychological stress, air pollution, and tobacco smoking. Calcitonin gene-related peptide (CGRP) may play a role in flushing and erythema.
-        \t•Impaired skin barrier
+        \t\t-Dysregulation of the immune response may lead to excessive inflammation, vasodilation , lymphatic dilatation, and angiogenesis.\n
+        \t•Neurocutaneous mechanisms:
+        \t\t-Triggers include ultraviolet (UV) radiation, temperature change, exercise, spicy foods, alcohol, psychological stress, air pollution, and tobacco smoking. Calcitonin gene-related peptide (CGRP) may play a role in flushing and erythema.\n
+        \t•Impaired skin barrier:
         \t\t-Affected skin displays features indicating skin barrier impairment, allowing bacterial colonisation and inflammation.`,
         source: `DermNet`,
-        treatment: `Rosacea has no known cure, however the following lifestyle choices, medications, and surgical procedures can help manage symptoms.
-        \t•General measures
-        \t\t-Every rosacea patient should be instructed in general skincare and lifestyle practices.
-        \t•Lifestyle advice
-        \t\t-To help identify triggers, encourage patients to keep a journal of their symptoms. Common triggers include spicy food, hot or cold temperatures (hot baths), exercise, sun exposure, cosmetics, medications (especially those that cause vasodilation), alcohol, fruits and vegetables, dairy, and products with marinated meat.
-        \t•General skincare advice
+        treatment: `Rosacea has no known cure, however the following lifestyle choices, medications, and surgical procedures can help manage symptoms.\n
+        \t•General measures:
+        \t\t-Every rosacea patient should be instructed in general skincare and lifestyle practices.\n
+        \t•Lifestyle advice:
+        \t\t-To help identify triggers, encourage patients to keep a journal of their symptoms. Common triggers include spicy food, hot or cold temperatures (hot baths), exercise, sun exposure, cosmetics, medications (especially those that cause vasodilation), alcohol, fruits and vegetables, dairy, and products with marinated meat.\n
+        \t•General skincare advice:
         \t\t-Moisturise frequently
         \t\t-Use gentle over-the-counter cleansers
         \t\t-Avoid exfoliants
         \t\t-Avoid alcohol-based topical products
         \t\t-Avoid use of topical steroids as they may aggravate the condition
-        \t\t-Cosmetics with a green tint are useful to minimise the appearance of redness.
+        \t\t-Cosmetics with a green tint are useful to minimise the appearance of redness.\n
         \t•Cosmetics with a green tint are useful to minimise the appearance of redness.
         \t\t-Determine the psychosocial impact of the patient's illness and, if required, suggest a referral for psychiatric assistance. `,
         link: `https://dermnetnz.org/topics/rosacea`,
@@ -138,8 +138,8 @@ export const skinConditionData = [
         \t•Wrinkled skin underneath your eyes.
         \t•Small bumps or blisters.`,
         causes: `Multiple factors cause eczema on your face, including:
-        \t•Irritants in your surroundings: Whether you have allergies or not, there are many things in your environment that can cause skin irritation, including plants and animals, soaps and detergents, garment fibers, air pollutants such as smoking, and humidity levels.
-        \t•An overactive immune system: Your immune system defends your body against foreign invaders such as germs and viruses that can make you sick. If you have eczema, your immune system may misidentify your skin cells, minor irritants, or allergens in your environment as alien invaders and fight them. This causes your skin to enlarge (inflammation) and itch.
+        \t•Irritants in your surroundings: Whether you have allergies or not, there are many things in your environment that can cause skin irritation, including plants and animals, soaps and detergents, garment fibers, air pollutants such as smoking, and humidity levels.\n
+        \t•An overactive immune system: Your immune system defends your body against foreign invaders such as germs and viruses that can make you sick. If you have eczema, your immune system may misidentify your skin cells, minor irritants, or allergens in your environment as alien invaders and fight them. This causes your skin to enlarge (inflammation) and itch.\n
         \t•Genetics: Your genes are the fundamental components of your body. A change in your DNA sequence (genetic mutation) might influence how proteins in your body maintain the epidermal barrier that protects you from the environment. If you have a family history of face eczema, you may be more likely to get it.
         `,
         source: `Cleaveland Clinic`,
@@ -147,7 +147,6 @@ export const skinConditionData = [
         \t•Using gentle or sensitive skin moisturizers or lotions.
         \t•Light therapy to reduce the appearance of skin blemishes.
         \t•Applying anti-inflammatory medications (topical steroids or topical calcineurin inhibitors) to your skin.
-        \t•Taking medications like antihistamines, corticosteroids to reduce swelling and inflammation or immunosuppressant drugs to regulate the function of your immune system.
         `,
         link: `https://my.clevelandclinic.org/health/diseases/24604-eczema-on-face`,
         altText: 'Close-up image of facial rosacea'
@@ -191,16 +190,23 @@ export const skinConditionData = [
         definition: `Seborrhoeic dermatitis is a chronic or relapsing eczema/dermatitis that primarily affects the scalp, face, and trunk, where sebaceous glands are concentrated.\n
         There are infantile and adult forms of seborrhoeic dermatitis. This benign inflammatory condition is sometimes associated with psoriasis and is known as sebopsoriasis. Seborrhoeic dermatitis is also known as seborrhoeic eczema (“seborrheic” in American English).`,
         symptops: `\t•Infantile seborrhoeic dermatitis
-        \t\t-Infantile seborrhoeic dermatitis causes cradle cap (diffuse, greasy scaling on the scalp). The rash may spread to affect armpit and groin folds (a type of napkin dermatitis).
+        \t\t-There are salmon-pink patches that may flake or peel.
+        \t\t-It is not especially itchy, so the baby often appears undisturbed by the rash, even when generalised.\n
         \t•Adult seborrhoeic dermatitis
-        \t\t-Seborrheic dermatitis commonly affects areas of the skin with high sebum production, such as the scalp, nasolabial folds, glabella, eyebrows, beard, ears, retroauricular skin, sternum, and other skin folds.
-        \t•Adult seborrhoeic dermatitis
-        \t\t-Seborrheic dermatitis commonly affects areas of the skin with high sebum production, such as the scalp, nasolabial folds, glabella, eyebrows, beard, ears, retroauricular skin, sternum, and other skin folds.`,
+        \t\t-Winter flares, improving in summer following sun exposure
+        \t\t-Minimal itch most of the time
+        \t\t-Combination oily and dry mid-facial skin
+        \t\t-Ill-defined localised scaly patches or diffuse scale in the scalp
+        \t\t-Blepharitis: scaly red eyelid margins
+        \t\t-Salmon-pink, thin, scaly, and ill-defined plaques in skin folds on both sides of the face
+        \t\t-Petal or ring-shaped flaky patches on the hairline and on anterior chest
+        \t\t-Rash in the armpits, under the breasts, in the groin folds, and genital creases
+        \t\t-Malassezia folliculitis (inflamed hair follicles) on the cheeks and upper trunk.`,
         causes: `Several causes contribute to the disease, including hormone imbalances, fungal infections, nutritional deficiencies, and neurogenic variables. The Malassezia yeast genus is thought to play a function. Malassezia, a saprophyte of normal skin, produces lipases and phospholipases that break down triglycerides in sebum to release free fatty acids. This may cause irritation. Individual presentations may be explained by differences in the skin barrier's lipid composition and function.`,
         source: `DermNet`,
         treatment: `\t•General measures
         \t\t-Educating the patient about the skin condition and appropriate skincare routine.
-        \t\t-Identifying modifiable lifestyle factors e.g. a high fruit intake is associated with less seborrheic dermatitis whereas stress may precipitate flare-ups.
+        \t\t-Identifying modifiable lifestyle factors e.g. a high fruit intake is associated with less seborrheic dermatitis whereas stress may precipitate flare-ups.\n
         \t•Face, ears, chest, and back
         \t\t-Cleanse the affected skin thoroughly once or twice each day using a non-soap cleanser.
         \t\t-Apply ketoconazole or ciclopirox cream once daily for 2 to 4 weeks, repeated as necessary.
@@ -217,7 +223,7 @@ export const skinConditionData = [
         img1: perioral1,
         img2: perioral2,
         definition: `Perioral (periorificial) dermatitis (POD) is a rather frequent chronic inflammatory skin eruption. As the name implies, it preferentially targets cutaneous orifices, such as the eyes, nostrils, mouth, and, on occasion, the genitals.\n
-        Periorificial dermatitis can be restricted to a single orifice, when it is more accurately termed::
+        Periorificial dermatitis can be restricted to a single orifice, when it is more accurately termed:
         \t•Perioral dermatitis (classic site affected)
         \t•Periocular dermatitis
         \t•Perinasal dermatitis
@@ -229,19 +235,17 @@ export const skinConditionData = [
         \t•Itch
         \t•Surrounding skin is often dry`,
         causes: `It is unclear what caused the issue. A proposed mechanism suggests that epidermal dysfunction is the primary disruption, leading in:
-        \t•Increased penetration of exogenous agents through the stratum corneum, triggering an irritation reaction
-        \t•Enhancing trans-epidermal water loss resulting in tightness and dryness, causing patients to increase use of topical products, leading to further irritation.\n
-        Pain is uncommon, but skin sensitivity is widespread, and patients are otherwise systemically healthy.`,
+        \t•Increased penetration of exogenous agents through the stratum corneum, triggering an irritation reaction`,
         source: `DermNet`,
         treatment: `Periorificial dermatitis is a benign, self-limiting disorder that has no systemic implications. However, the patient may find it cosmetically unappealing, resulting in a considerable illness burden and psychological suffering. Periorificial dermatitis typically responds well to therapy.\n
         The POD Severity Index (PODSI) has been used in the literature to assess disease severity and response to treatment.\n
-        General measures
+        General measures:
         \t•The zero-therapy approach should be utilised in all POD patients and may result in complete resolution of mild cases. Advise patients to:
-        \t\t-Stop all facial cosmetics and topical products, including sunscreens and emollients
-        \t•A bland emollient without preservatives/additives can be used for skin dryness. Avoid occlusive creams and ointments as they can worsen POD.
-        \t•A gel or liquid sunscreen can be used
-        \t•Specific measures
-        Topical and/or systemic treatments are available; duration is usually 4–8 weeks but may require an extension. Recurrence can occur if treatment is too short. `,
+        \t\t-Stop all facial cosmetics and topical products, including sunscreens and emollients\n
+        \t•A bland emollient without preservatives/additives can be used for skin dryness. Avoid occlusive creams and ointments as they can worsen POD.\n
+        \t•A gel or liquid sunscreen can be used\n
+        Specific measures:
+        \t•Topical and/or systemic treatments are available; duration is usually 4–8 weeks but may require an extension. Recurrence can occur if treatment is too short. `,
         link: `https://dermnetnz.org/topics/periorificial-dermatitis`,
         altText: 'Close-up image of Perioral Dermatitis on face'
     },
@@ -264,7 +268,10 @@ export const skinConditionData = [
         \t•Polymorphous light eruption
         \t•Cutaneous lupus erythematosus\n
         Misdiagnosis is particularly common in those treated with topical steroids or oral steroids (tinea incognita).`,
-        causes: ``,
+        causes: `•Steroid Use
+        •Sun Exposure
+        •Fungal Infection from Other Areas:
+        •Zoophilic Infections:`,
         source: `DermNet`,
         treatment: `Tinea faciei is often treated with topical antifungal drugs; however, if this is ineffective, oral antifungal medications such as terbinafine and itraconazole may be tried.\n
         In recent years, antifungal drug resistance has made treatment more challenging.`,

@@ -9,12 +9,20 @@
   top: 0;
   z-index: 100;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  padding: 10px 0px;
 }
 .navContainer .logoContainer {
   margin-left: 100px;
 }
 .navContainer .logoContainer a {
   text-decoration: none;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.navContainer .logoContainer .logo {
+  height: 60px;
+  width: 60px;
 }
 .navContainer .logoContainer .siteName {
   font-family: "Oswald", sans-serif;
@@ -37,7 +45,7 @@
 .navLinks li a {
   text-decoration: none;
   color: white;
-  padding: 4px 6px;
+  padding: 7px 12px;
 }
 .navLinks li a:hover {
   background-color: rgba(0, 217, 217, 0.7215686275);
@@ -60,9 +68,7 @@
   -webkit-backdrop-filter: blur(10px);
           backdrop-filter: blur(10px);
   transition: transform 0.5s ease-in-out;
-  /* Smooth animation */
   transform: translateX(0);
-  /* Initial position */
 }
 .sideContainer .navLinks {
   display: flex;
@@ -74,24 +80,27 @@
   display: none;
 }
 
-@media screen and (min-width: 481px) and (max-width: 768px) {
-  .logoContainer {
-    margin-left: 50px !important;
-  }
-  .logoContainer .siteName {
-    font-size: 2.4rem !important;
-  }
-  .menuContainer {
-    margin-right: 50px !important;
-  }
-  .siteName {
-    font-size: 1rem;
-  }
+@media screen and (max-width: 1017px) {
   .hideOnSmall {
     display: none;
   }
   .menuButton {
     display: block;
+  }
+}
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .logoContainer {
+    margin-left: 50px !important;
+  }
+  .logoContainer .logo {
+    height: 55px !important;
+    width: 55px !important;
+  }
+  .logoContainer .siteName {
+    font-size: 2.3rem !important;
+  }
+  .menuContainer {
+    margin-right: 50px !important;
   }
   .options li {
     margin-bottom: 20px;
@@ -99,19 +108,17 @@
 }
 @media screen and (max-width: 480px) {
   .logoContainer {
-    margin-left: 20px !important;
+    margin-left: 25px !important;
+  }
+  .logoContainer .logo {
+    height: 48px !important;
+    width: 48px !important;
   }
   .logoContainer .siteName {
     font-size: 1.9rem !important;
   }
   .menuContainer {
-    margin-right: 20px !important;
-  }
-  .hideOnSmall {
-    display: none;
-  }
-  .menuButton {
-    display: block;
+    margin-right: 25px !important;
   }
   .options li {
     margin-bottom: 20px;

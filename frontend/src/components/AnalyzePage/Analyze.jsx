@@ -167,9 +167,9 @@ const Analyze = () => {
               alt="Upload"
             />
             <p className={styles.allowedMessage}>
-              Only JPG, JPEG, and PNG image formats are accepted for upload.
-              Other formats will not be allowed.
+              Only JPG, JPEG, and PNG image formats are accepted.
               <br /> To take a photo, use mobile or tablet.
+              <br /> Ensure clear image for more accurate analysis
             </p>
           </>
         )}
