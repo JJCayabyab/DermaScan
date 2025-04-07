@@ -28,5 +28,5 @@ myenv
 *.sln
 *.sw?
 models/files/alexnet.pth
-mmodels/files/final_xgboost_model.json
+models/files/final_xgboost_model.json
 backend/__pycache__/
