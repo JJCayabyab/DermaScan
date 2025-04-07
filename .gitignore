@@ -15,6 +15,7 @@ dist-ssr
 # Virtual environment
 myenv/
 tool/
+myenv
 
 # Editor directories and files
 .vscode/*
@@ -26,6 +27,6 @@ tool/
 *.njsproj
 *.sln
 *.sw?
-backend/models/alexnet.pth
-backend/models/final_xgboost_model.json
+models/files/alexnet.pth
+mmodels/files/final_xgboost_model.json
 backend/__pycache__/
