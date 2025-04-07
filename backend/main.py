@@ -21,7 +21,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://192.168.1.12:5173", "http://localhost:5173"],
+    allow_origins=["http://172.20.10.8:5173", "http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -97,7 +97,7 @@ alexnet_fc6 = AlexNetFC6(checkpoint_path).to(device)
 
 ############ XGBoost Classifier ##########
 xgboost_model = xgb.XGBClassifier()
-xgboost_model.load_model(r'C:\Users\Josh\Desktop\FINAL_TOOL\DermaScan\backend\models\xgboost.json')
+xgboost_model.load_model(r'C:\Users\Josh\Desktop\FINAL_TOOL\DermaScan\backend\models\final_xgboost_model.json')
 
 ########## CLAHE ############
 class CLAHETransform:
@@ -107,18 +107,17 @@ class CLAHETransform:
 
     def __call__(self, img):
         img_np = np.array(img)
-        
-        if len(img_np.shape) == 3:
-            channels = cv2.split(img_np)
-            clahe = cv2.createCLAHE(clipLimit=self.clip_limit, tileGridSize=self.tile_grid_size)
-            channels = [clahe.apply(channel) for channel in channels]
-            img_np = cv2.merge(channels)
-        else:
-            clahe = cv2.createCLAHE(clipLimit=self.clip_limit, tileGridSize=self.tile_grid_size)
-            img_np = clahe.apply(img_np)
 
-        img_clahe = Image.fromarray(img_np)
-        return img_clahe
+        img_lab = cv2.cvtColor(img_np, cv2.COLOR_RGB2LAB)
+        l, a, b = cv2.split(img_lab)
+
+        clahe = cv2.createCLAHE(clipLimit=self.clip_limit, tileGridSize=self.tile_grid_size)
+        l_clahe = clahe.apply(l)
+
+        img_clahe = cv2.merge((l_clahe, a, b))
+        img_clahe = cv2.cvtColor(img_clahe, cv2.COLOR_LAB2RGB)
+
+        return Image.fromarray(img_clahe)
 
 # Preprocessing function for the input image
 def preprocess_image(image: Image.Image):
@@ -135,7 +134,7 @@ def preprocess_image(image: Image.Image):
 def np_to_base64(image_np):
     image_pil = Image.fromarray(cv2.cvtColor(image_np, cv2.COLOR_BGR2RGB))
     buffered = BytesIO()
-    image_pil.save(buffered, format="PNG")
+    image_pil.save(buffered, format="JPEG")
     return base64.b64encode(buffered.getvalue()).decode()
 
 def add_prediction_text(image, text, position):

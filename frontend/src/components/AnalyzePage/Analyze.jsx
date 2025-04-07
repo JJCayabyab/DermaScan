@@ -2,12 +2,12 @@
  * File: Analyze.jsx
  * Programmer: Jeremy Jhay B. Cayabyab
  *             Malcolm James Murillo
- * 
+ *
  * Where the Program Fits in the General System Design:
- * This file is a core component of the frontend application, enabling users to upload or capture 
- * facial images for AI-powered skin disease analysis. It connects with the backend API to 
+ * This file is a core component of the frontend application, enabling users to upload or capture
+ * facial images for AI-powered skin disease analysis. It connects with the backend API to
  * process the image and displays results using AlexNet and AlexNet-XGBoost models.
- * 
+ *
  * Date Written: September 29, 2024
  * Date Revised: November 9, 2024
  *
@@ -15,7 +15,7 @@
  * - To allow users to upload or capture images in JPG or PNG format for analysis.
  * - To communicate with the backend API for AI predictions and retrieve results.
  * - To display analysis results, including predictions, confidence scores, and extracted features, in a user-friendly modal.
- * - To provide a seamless and interactive user experience with features like image preview, loading animations, 
+ * - To provide a seamless and interactive user experience with features like image preview, loading animations,
  *   error handling, and result visualization.
  *
  * **/
@@ -43,9 +43,9 @@ const Analyze = () => {
 
   const [loading, setLoading] = useState(false); // Manage loading state
 
-  /** Handles image upload by validating the file type, updating the preview image, 
-    * storing the uploaded file in state, and displaying an error message if the file type is unsupported.
-  **/
+  /** Handles image upload by validating the file type, updating the preview image,
+   * storing the uploaded file in state, and displaying an error message if the file type is unsupported.
+   **/
   const handleUploadChange = (event) => {
     const file = event.target.files[0];
     const allowedTypes = ["image/jpeg", "image/png"];
@@ -71,7 +71,7 @@ const Analyze = () => {
     setErrorMessage(""); // Clear the error when clearing the image
   };
 
-  //Display the results modal if the user has clicked analyze 
+  //Display the results modal if the user has clicked analyze
   const openResults = async () => {
     // Check if a file is uploaded; if not, show an error message and exit
     if (!uploadedFile) {
@@ -86,9 +86,10 @@ const Analyze = () => {
     formData.append("file", uploadedFile); // Prepare the file for API submission
 
     // Choose the correct API URL based on the environment
-    const apiUrl = window.location.hostname === 'localhost'
-      ? "http://localhost:8000/predict"
-      : "http://192.168.1.12:8000/predict";
+    const apiUrl =
+      window.location.hostname === "localhost"
+        ? "http://localhost:8000/predict"
+        : "http://172.20.10.8:8000/predict";
 
     try {
       const response = await axios.post(apiUrl, formData, {
@@ -121,7 +122,7 @@ const Analyze = () => {
       setIsModalOpen(true);
     } catch (error) {
       console.error("Error analyzing the image:", error);
-      setErrorMessage("Error analyzing the image. Please try again.");// Display error message if image has not been analyzed
+      setErrorMessage("Error analyzing the image. Please try again."); // Display error message if image has not been analyzed
     } finally {
       setLoading(false); // End loading state after the request
     }
@@ -155,10 +156,13 @@ const Analyze = () => {
 
       {/*Handles image upload and preview logic */}
       <div className={styles.uploadCotainer}>
-
         {/*Shows the uploaded image of the user or the default upload vector */}
         {imageSrc ? (
-          <img src={imageSrc} alt="Preview Image" className={styles.previewImage} />
+          <img
+            src={imageSrc}
+            alt="Preview Image"
+            className={styles.previewImage}
+          />
         ) : (
           <>
             <img
@@ -167,9 +171,9 @@ const Analyze = () => {
               alt="Upload"
             />
             <p className={styles.allowedMessage}>
-              Only JPG, JPEG, and PNG image formats are accepted.
+              Only image formats are accepted.
               <br /> To take a photo, use mobile or tablet.
-              <br /> Ensure clear image for more accurate analysis
+              <br /> Note: Ensure clear image for more accurate analysis
             </p>
           </>
         )}
@@ -250,26 +254,30 @@ const Analyze = () => {
               <div className={styles.resultImages}>
                 {alexnetResult && (
                   <div className={styles.alexContainer}>
-                    <p>AlexNet Prediction</p>
+                    <p>Model 1: AlexNet Prediction</p>
                     <h2>{alexnetTextResult}</h2>
-                    <p>Confidence: {(alexnetConfidence * 100).toFixed(2)}%</p>
-                    <p>Features: {alexnetFeatures}</p>
                     <img
                       src={`data:image/png;base64,${alexnetResult}`}
                       alt="AlexNet Prediction"
                     />
+                    <p>
+                      Confidence Rate: {(alexnetConfidence * 100).toFixed(2)}%
+                    </p>
+                    <p>Features: {alexnetFeatures}</p>
                   </div>
                 )}
                 {xgboostResult && (
                   <div className={styles.xgContainer}>
-                    <p>AlexNet-XGBoost Prediction</p>
+                    <p>Model 2: AlexNet-XGBoost Prediction</p>
                     <h2>{xgboostTextResult}</h2>
-                    <p>Confidence: {(xgboostConfidence * 100).toFixed(2)}%</p>
-                    <p>Features: {xgboostFeatures}</p>
                     <img
                       src={`data:image/png;base64,${xgboostResult}`}
                       alt="XGBoost Prediction"
                     />
+                    <p>
+                      Confidence Rate: {(xgboostConfidence * 100).toFixed(2)}%
+                    </p>
+                    <p>Features: {xgboostFeatures}</p>
                   </div>
                 )}
               </div>

@@ -31,7 +31,8 @@
     position: relative;
     margin-top: 100px;
     display: flex;
-    gap: 50px;
+    flex-direction: row;
+    gap: 40px;
     justify-content: center;
     background-color: $primary-color;
     padding: 20px 70px;
@@ -56,7 +57,7 @@
         width: 45%;
 
         img {
-            width: 420px;
+            width: 70%;
             height: auto;
         }
     }

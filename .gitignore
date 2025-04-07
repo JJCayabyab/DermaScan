@@ -26,3 +26,5 @@ tool/
 *.njsproj
 *.sln
 *.sw?
+backend/models/alexnet.pth
+backend/models/final_xgboost_model.json
