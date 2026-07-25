@@ -1,2 +1,9 @@
-fastapi 
+fastapi
 uvicorn
+python-multipart
+numpy
+torch
+torchvision
+xgboost
+opencv-python
+pillow

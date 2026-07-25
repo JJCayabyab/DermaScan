@@ -1,4 +1,5 @@
 # File 2: revised_main.py
+import os
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -16,6 +17,10 @@ from PIL import Image
 import logging
 
 logging.basicConfig(level=logging.INFO)
+
+MODELS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "models", "files")
+ALEXNET_PATH = os.path.join(MODELS_DIR, "alexnet.pth")
+XGBOOST_PATH = os.path.join(MODELS_DIR, "final_xgboost_model.json")
 
 app = FastAPI()
 
@@ -55,7 +60,7 @@ class AlexNet(nn.Module):
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 alexnet_model = AlexNet(num_classes=CATEGORIES).to(device)
-alexnet_model.load_state_dict(torch.load(r'C:\Users\Josh\Desktop\FINAL_TOOL\DermaScan\backend\models\alexnet.pth', map_location=torch.device('cpu')))
+alexnet_model.load_state_dict(torch.load(ALEXNET_PATH, map_location=torch.device('cpu')))
 alexnet_model.eval()
 
 ########## Feature Extractor AlexNet ##########
@@ -92,12 +97,11 @@ class AlexNetFC6(nn.Module):
         return self.model(x)
 
 # Usage
-checkpoint_path = r"C:\Users\Josh\Desktop\FINAL_TOOL\DermaScan\backend\models\alexnet.pth"
-alexnet_fc6 = AlexNetFC6(checkpoint_path).to(device)
+alexnet_fc6 = AlexNetFC6(ALEXNET_PATH).to(device)
 
 ############ XGBoost Classifier ##########
 xgboost_model = xgb.XGBClassifier()
-xgboost_model.load_model(r'C:\Users\Josh\Desktop\FINAL_TOOL\DermaScan\backend\models\final_xgboost_model.json')
+xgboost_model.load_model(XGBOOST_PATH)
 
 ########## CLAHE ############
 class CLAHETransform:

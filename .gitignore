@@ -27,6 +27,9 @@ myenv
 *.njsproj
 *.sln
 *.sw?
-models/files/alexnet.pth
-models/files/final_xgboost_model.json
 backend/__pycache__/
+backend/venv/
+models/
+
+# Dataset
+Dataset/

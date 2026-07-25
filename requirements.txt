@@ -9,3 +9,15 @@ fastapi uvicorn
 scikit-learn
 opencv-python
 python-multipart
+
+# Backend Setup
+# python -m venv venv
+# venv\Scripts\activate
+# pip install -r requirements.txt
+# uvicorn main:app --reload --port 8000
+
+#Frontend Setup
+#cd frontend
+#npm install
+#npm run dev
+
