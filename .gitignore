@@ -16,6 +16,7 @@ dist-ssr
 myenv/
 tool/
 myenv
+models/hybrid/
 
 # Editor directories and files
 .vscode/*
